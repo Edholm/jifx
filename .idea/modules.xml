@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jifx.iml" filepath="$PROJECT_DIR$/.idea/modules/jifx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jifx_main.iml" filepath="$PROJECT_DIR$/.idea/modules/jifx_main.iml" group="jifx" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jifx_test.iml" filepath="$PROJECT_DIR$/.idea/modules/jifx_test.iml" group="jifx" />
+    </modules>
+  </component>
+</project>
