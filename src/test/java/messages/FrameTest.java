@@ -16,13 +16,15 @@ public class FrameTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void sizeTooLarge() throws Exception {
+    public void sizeInvalid() throws Exception {
         new Frame.Builder(0x10000).build();
+        new Frame.Builder(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void sourceTooLarge() throws Exception {
+    public void sourceInvalid() throws Exception {
         new Frame.Builder(0x0).source(0x100000000L).build();
+        new Frame.Builder(0x0).source(-1).build();
     }
 
     @Test

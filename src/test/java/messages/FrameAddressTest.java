@@ -19,6 +19,7 @@ public class FrameAddressTest {
     @Test(expected = IllegalArgumentException.class)
     public void sequenceToLarge() throws Exception {
         new FrameAddress.Builder().sequence(0x100).build();
+        new FrameAddress.Builder().sequence(-1).build();
     }
 
     @Test
