@@ -1,5 +1,6 @@
 package messages.headers;
 
+import messages.Message;
 import messages.MessageConstants;
 import utils.ByteUtils;
 
@@ -16,9 +17,9 @@ import java.util.Arrays;
  * The FrameAddress is 16 byte long (128 bits)
  * Created by Emil Edholm on 2016-11-04.
  */
-public final class FrameAddress {
-    public static final int ACK_REQUIRED_POSITION = 9;
-    public static final int RES_REQUIRED_POSITION = 8;
+public final class FrameAddress implements Message {
+    private static final int ACK_REQUIRED_POSITION = 9;
+    private static final int RES_REQUIRED_POSITION = 8;
     private final long target;
     private final int ackRequired;
     private final int resRequired;
@@ -74,10 +75,12 @@ public final class FrameAddress {
         this.content = bb.array();
     }
 
+    @Override
     public byte[] getContent() {
         return content;
     }
 
+    @Override
     public int size() {
         return content.length;
     }

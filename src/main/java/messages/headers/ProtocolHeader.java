@@ -1,5 +1,6 @@
 package messages.headers;
 
+import messages.Message;
 import messages.MessageConstants;
 import messages.MessageType;
 import utils.ByteUtils;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 /**
  * Created by Emil Edholm on 2016-11-04.
  */
-public final class ProtocolHeader {
+public final class ProtocolHeader implements Message {
     private final MessageType type;
     private final byte[] content;
 
@@ -28,10 +29,12 @@ public final class ProtocolHeader {
         return type;
     }
 
+    @Override
     public byte[] getContent() {
         return content;
     }
 
+    @Override
     public int size() {
         return content.length;
     }

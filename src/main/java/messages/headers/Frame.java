@@ -1,5 +1,6 @@
 package messages.headers;
 
+import messages.Message;
 import messages.MessageConstants;
 import utils.ByteUtils;
 
@@ -16,7 +17,7 @@ import java.util.Arrays;
  * The Frame is 8 bytes long (64 bits)
  * Created by Emil Edholm on 2016-11-01.
  */
-public final class Frame {
+public final class Frame implements Message {
     /**
      * Total size of the Frame in in bytes
      */
@@ -75,10 +76,12 @@ public final class Frame {
         content = buffer.array();
     }
 
+    @Override
     public byte[] getContent() {
         return content;
     }
 
+    @Override
     public int size() {
         return content.length;
     }
