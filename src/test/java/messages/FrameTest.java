@@ -38,6 +38,8 @@ public class FrameTest {
                 ff, ff, 0x0, 0x14, ff, ff, ff, ff
         };
 
+        System.out.println("F1: " + f1);
+        System.out.println("F2: " + f2);
         assertThat(f1.getContent(), is(f1ExpectedContent));
         assertThat(f2.getContent(), is(f2ExpectedContent));
     }

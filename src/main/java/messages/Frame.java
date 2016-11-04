@@ -83,12 +83,12 @@ public final class Frame {
     @Override
     public String toString() {
         return "Frame{" +
-                "origin=" + origin +
-                ", addressable=" + addressable +
+                "origin=" + ByteUtils.toHexString(origin) +
+                ", addressable=" + ((addressable > 0) ? "true" : "false") +
                 ", protocol=" + protocol +
-                ", size=" + size +
-                ", tagged=" + tagged +
-                ", source=" + source +
+                ", size=" + ByteUtils.toHexString(size) +
+                ", tagged=" + ((tagged > 0) ? "true" : "false") +
+                ", source=" + ByteUtils.toHexString(source) +
                 ", content=" + ByteUtils.toHexString(content) +
                 '}';
     }
