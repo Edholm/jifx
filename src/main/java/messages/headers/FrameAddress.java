@@ -1,5 +1,6 @@
-package messages;
+package messages.headers;
 
+import messages.MessageConstants;
 import utils.ByteUtils;
 
 import java.nio.ByteBuffer;

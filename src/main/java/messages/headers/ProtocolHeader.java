@@ -1,5 +1,7 @@
-package messages;
+package messages.headers;
 
+import messages.MessageConstants;
+import messages.MessageType;
 import utils.ByteUtils;
 
 import java.nio.ByteBuffer;
@@ -20,6 +22,10 @@ public final class ProtocolHeader {
         bb.putShort(this.type.type());
         bb.putShort((short) 0);
         this.content = bb.array();
+    }
+
+    public MessageType getType() {
+        return type;
     }
 
     public byte[] getContent() {
