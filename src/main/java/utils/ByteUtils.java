@@ -9,14 +9,14 @@ public class ByteUtils {
     public static String toHexString(byte[] array) {
         StringBuilder sb = new StringBuilder();
         sb.append("0x");
-        for(byte b : array) {
+        for (byte b : array) {
             sb.append(String.format(HEX_FORMAT, b));
         }
 
         return sb.toString();
     }
 
-    public static<T> String toHexString(T s) {
+    public static <T> String toHexString(T s) {
         return "0x" + String.format(HEX_FORMAT, s);
     }
 }
