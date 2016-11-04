@@ -3,16 +3,15 @@ package messages;
 import utils.ByteUtils;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
  * The Frame section contains information about the following:
- *     Size of the entire message
- *     LIFX Protocol number: must be 1024 (decimal)
- *     Use of the Frame Address target field
- *     Source identifier
- *
+ * Size of the entire message
+ * LIFX Protocol number: must be 1024 (decimal)
+ * Use of the Frame Address target field
+ * Source identifier
+ * <p>
  * The Frame is 8 bytes long (64 bits)
  * Created by Emil Edholm on 2016-11-01.
  */
@@ -38,7 +37,7 @@ public final class Frame {
         private int source = 0;
 
         public Builder(int size) {
-            if(size < 0 || size > 0xFFFF) {
+            if (size < 0 || size > 0xFFFF) {
                 throw new IllegalArgumentException("Size does not fit a uint16: Got: " + size);
             }
             this.size = (short) size;
@@ -50,7 +49,7 @@ public final class Frame {
         }
 
         public Builder source(long source) {
-            if (source < 0 || source >  0xFFFFFFFFL) {
+            if (source < 0 || source > 0xFFFFFFFFL) {
                 throw new IllegalArgumentException("Source does not fit a uint32: Got: " + source);
             }
             this.source = (int) source;
@@ -77,6 +76,10 @@ public final class Frame {
 
     public byte[] getContent() {
         return content;
+    }
+
+    public int size() {
+        return content.length;
     }
 
     @Override

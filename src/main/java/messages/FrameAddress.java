@@ -3,7 +3,7 @@ package messages;
 import utils.ByteUtils;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import java.util.Arrays;
 
 /**
  * The Frame Address section contains the following routing information:
@@ -77,6 +77,10 @@ public final class FrameAddress {
         return content;
     }
 
+    public int size() {
+        return content.length;
+    }
+
     @Override
     public String toString() {
         return "FrameAddress{" +
@@ -86,5 +90,21 @@ public final class FrameAddress {
                 ", sequence=" + String.format("0x%x", sequence) +
                 ", content=" + ByteUtils.toHexString(content) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FrameAddress that = (FrameAddress) o;
+
+        return Arrays.equals(content, that.content);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(content);
     }
 }
