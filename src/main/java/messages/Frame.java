@@ -20,7 +20,6 @@ public final class Frame {
     /**
      * Total size of the Frame in in bytes
      */
-    private static final int TOTAL_SIZE = 8;
     private static final int ADDRESSABLE_POSITION = 12;
     private static final int TAGGED_POSITION = 13;
     private static final int ORIGIN_POSITION = 14;
@@ -70,8 +69,8 @@ public final class Frame {
 
 
         short otap = (short) (origin | tagged | addressable | protocol);
-        ByteBuffer buffer = ByteBuffer.allocate(TOTAL_SIZE);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer buffer = ByteBuffer.allocate(MessageConstants.SIZE_FRAME);
+        buffer.order(MessageConstants.BYTE_ORDER);
         buffer.putShort(size).putShort(otap).putInt(source);
         content = buffer.array();
     }

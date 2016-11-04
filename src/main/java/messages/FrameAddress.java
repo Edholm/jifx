@@ -16,7 +16,6 @@ import java.nio.ByteOrder;
  * Created by Emil Edholm on 2016-11-04.
  */
 public final class FrameAddress {
-    private static final int SIZE = 16;
     public static final int ACK_REQUIRED_POSITION = 9;
     public static final int RES_REQUIRED_POSITION = 8;
     private final long target;
@@ -66,8 +65,8 @@ public final class FrameAddress {
         this.resRequired = b.resRequired;
         this.sequence = b.sequence;
 
-        ByteBuffer bb = ByteBuffer.allocate(SIZE);
-        bb.order(ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer bb = ByteBuffer.allocate(MessageConstants.SIZE_FRAME_ADDRESS);
+        bb.order(MessageConstants.BYTE_ORDER);
         bb.putLong(target);
         // & with 0xff to get unsigned value
         bb.putLong(ackRequired | resRequired | (sequence & 0xff));
