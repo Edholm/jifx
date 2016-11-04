@@ -5,10 +5,12 @@ package messages;
  */
 public class ByteUtils {
 
-    public static byte setBit(byte b, int position) {
-        return (byte) (b | ( 1 << position));
-    }
-    public static byte clearBit(byte b, byte position) {
-        return (byte) (b & ~(1 << position));
+    public static String toHexString(byte[] array) {
+        StringBuilder sb = new StringBuilder();
+        for(byte b : array) {
+            sb.append(String.format("0x%x ", b));
+        }
+
+        return sb.toString();
     }
 }

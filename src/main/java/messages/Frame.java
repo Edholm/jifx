@@ -5,10 +5,13 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
- * Details the first part of the header: Frame.
- * <br />
- * The Frame is 8 byte (64 bits) in length.
- * <br />
+ * The Frame section contains information about the following:
+ *     Size of the entire message
+ *     LIFX Protocol number: must be 1024 (decimal)
+ *     Use of the Frame Address target field
+ *     Source identifier
+ *
+ * The Frame is 8 bytes long (64 bits)
  * Created by Emil Edholm on 2016-11-01.
  */
 public final class Frame {
@@ -77,10 +80,6 @@ public final class Frame {
 
     @Override
     public String toString() {
-        String contentHex = "";
-        for(byte b : content) {
-            contentHex += String.format("0x%x ", b);
-        }
         return "Frame{" +
                 "origin=" + origin +
                 ", addressable=" + addressable +
@@ -88,7 +87,7 @@ public final class Frame {
                 ", size=" + size +
                 ", tagged=" + tagged +
                 ", source=" + source +
-                ", content=" + contentHex +
+                ", content=" + ByteUtils.toHexString(content) +
                 '}';
     }
 
