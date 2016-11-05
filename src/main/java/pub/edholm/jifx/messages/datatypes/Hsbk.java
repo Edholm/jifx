@@ -126,6 +126,7 @@ public final class Hsbk implements Message {
                 ", saturation=" + ByteUtils.toHexString(saturation) +
                 ", brightness=" + ByteUtils.toHexString(brightness) +
                 ", kelvin=" + kelvin +
+                ", content=" + ByteUtils.toHexString(getContent()) +
                 '}';
     }
 }
