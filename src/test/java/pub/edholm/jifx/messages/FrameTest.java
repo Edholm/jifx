@@ -11,27 +11,32 @@ import static org.junit.Assert.assertThat;
  */
 public class FrameTest {
     @Test
+    public void valueOf() throws Exception {
+        Frame f = new Frame.Builder().size(34).source(0xeda).tagged(true).build();
+    }
+
+    @Test
     public void correctSize() throws Exception {
-        Frame f = new Frame.Builder(0x0).build();
+        Frame f = new Frame.Builder().build();
         assertThat(f.getContent().length, is(8));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void sizeInvalid() throws Exception {
-        new Frame.Builder(0x10000).build();
-        new Frame.Builder(-1).build();
+        new Frame.Builder().size(0x10000).build();
+        new Frame.Builder().size(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void sourceInvalid() throws Exception {
-        new Frame.Builder(0x0).source(0x100000000L).build();
-        new Frame.Builder(0x0).source(-1).build();
+        new Frame.Builder().source(0x100000000L).build();
+        new Frame.Builder().source(-1).build();
     }
 
     @Test
     public void getContent() throws Exception {
-        Frame f1 = new Frame.Builder(0xFFFF).tagged(true).source(0xFFFFFFFFL).build();
-        Frame f2 = new Frame.Builder(0xFFFF).tagged(false).source(0xFFFFFFFFL).build();
+        Frame f1 = new Frame.Builder().size(0xFFFF).tagged(true).source(0xFFFFFFFFL).build();
+        Frame f2 = new Frame.Builder().size(0xFFFF).tagged(false).source(0xFFFFFFFFL).build();
 
         byte ff = (byte) 0xff;
         byte[] f1ExpectedContent = new byte[]{

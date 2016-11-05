@@ -34,15 +34,20 @@ public final class Frame implements Message {
     private final int source;
 
     public static class Builder {
-        private final short size;
+        private short size = Constants.SIZE_FRAME + Constants.SIZE_FRAME_ADDRESS + Constants.SIZE_PROTOCOL_HEADER;
         private short tagged = 0;
         private int source = 0;
 
-        public Builder(int size) {
+        /**
+         * The total size of the entire message going out the wire, including the payload
+         * Defaults to combined size of all the header messages: 36 bytes.
+         */
+        public Builder size(int size) {
             if (size < 0 || size > 0xFFFF) {
-                throw new IllegalArgumentException("Size does not fit a uint16: Got: " + size);
+                throw new IllegalArgumentException("Invalid size: Got: " + size);
             }
             this.size = (short) size;
+            return this;
         }
 
         /**

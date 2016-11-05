@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * Created by Emil Edholm on 2016-11-05.
  */
 public class ByteUtilsTest {
-    private final Message m1 = new Frame.Builder(49).tagged(true).build();
+    private final Message m1 = new Frame.Builder().size(49).tagged(true).build();
     private final Message m2 = new FrameAddress.Builder().build();
     private final Message m3 = new ProtocolHeader(MessageType.SetColor);
     private final Message m4 = new SetColor(new Hsbk.Builder().hue(0x5555).kelvin(3500).build(), 1024);
