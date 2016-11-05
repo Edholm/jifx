@@ -1,6 +1,6 @@
-package messages;
+package pub.edholm.jifx.messages;
 
-import messages.headers.Frame;
+import pub.edholm.jifx.messages.headers.Frame;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;

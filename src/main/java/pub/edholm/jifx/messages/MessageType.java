@@ -1,10 +1,10 @@
-package messages;
+package pub.edholm.jifx.messages;
 
 /**
  * Created by Emil Edholm on 2016-11-04.
  */
 public enum MessageType {
-    /* Device messages */
+    /* Device pub.edholm.jifx.messages */
     GetService(2),
     StateService(3),
     GetHostInfo(12),
@@ -33,7 +33,7 @@ public enum MessageType {
     EchoRequest(58),
     EchoResponse(59),
 
-    /* Light messages */
+    /* Light pub.edholm.jifx.messages */
     Get(101),
     SetColor(102),
     State(107),
@@ -44,7 +44,7 @@ public enum MessageType {
     StateInfrared(121),
     SetInfrared(122),
 
-    /* Multi-zone messages */
+    /* Multi-zone pub.edholm.jifx.messages */
     SetColorZones(501),
     GetColorZones(502),
     StateZone(503),

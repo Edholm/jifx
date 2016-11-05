@@ -1,8 +1,8 @@
-package messages.headers;
+package pub.edholm.jifx.messages.headers;
 
-import messages.Message;
-import messages.MessageConstants;
-import utils.ByteUtils;
+import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessageConstants;
+import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;

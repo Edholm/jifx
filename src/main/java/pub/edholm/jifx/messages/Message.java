@@ -1,4 +1,4 @@
-package messages;
+package pub.edholm.jifx.messages;
 
 /**
  * Created by Emil Edholm on 2016-11-04.
