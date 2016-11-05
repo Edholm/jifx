@@ -71,7 +71,7 @@ public final class FrameAddress implements Message {
          */
         public Builder sequence(int sequence) {
             if (sequence < 0 || sequence > 0xFF) {
-                throw new IllegalArgumentException("Sequence larger than is possible. Got: " + sequence);
+                throw new IllegalArgumentException("Sequence larger than is possible. Got: " + ByteUtils.toHexString(sequence));
             }
             this.sequence = (byte) sequence;
             return this;
@@ -94,6 +94,23 @@ public final class FrameAddress implements Message {
         // & with 0xff to get unsigned value
         bb.putLong(ackRequired | resRequired | (sequence & 0xff));
         this.content = bb.array();
+    }
+
+    public static FrameAddress valueOf(byte[] content) {
+        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
+        bb.order(Constants.BYTE_ORDER);
+        bb.put(content);
+        final long target = bb.getLong(0);
+        final long ars = bb.getLong(8);
+        final int ackReq = (int) ((ars & 0x200) >> ACK_REQUIRED_POSITION);
+        final int resReq = (int) ((ars & 0x100) >> RES_REQUIRED_POSITION);
+        final int seq = (int) (ars & 0xff);
+
+        return new FrameAddress.Builder()
+                .target(target)
+                .sequence(seq)
+                .ackRequired(ackReq == 1)
+                .resRequired(resReq == 1).build();
     }
 
     @Override

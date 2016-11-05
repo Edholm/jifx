@@ -11,6 +11,18 @@ import static org.junit.Assert.assertThat;
  */
 public class FrameAddressTest {
     @Test
+    public void valueOf() throws Exception {
+        FrameAddress frameAddress = new FrameAddress.Builder()
+                .target(0xfedaf)
+                .sequence(0xed)
+                .ackRequired(false)
+                .resRequired(true).build();
+
+        FrameAddress valueOf = FrameAddress.valueOf(frameAddress.getContent());
+        assertThat(frameAddress, is(valueOf));
+    }
+
+    @Test
     public void correctSize() throws Exception {
         FrameAddress fa = new FrameAddress.Builder().build();
         assertThat(fa.getContent().length, is(16));
