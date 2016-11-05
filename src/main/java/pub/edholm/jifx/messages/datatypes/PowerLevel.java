@@ -16,14 +16,21 @@ public class PowerLevel implements Message {
 
     public PowerLevel(boolean on) {
         this.level = (short) ((on) ? 0xffff : 0);
-        ByteBuffer bb = ByteBuffer.allocate(2);
+        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_POWER_LEVEL);
         bb.order(Constants.BYTE_ORDER);
         bb.putShort(this.level);
         content = bb.array();
     }
 
+    public static PowerLevel valueOf(byte[] content) {
+        ByteBuffer bb = ByteBuffer.wrap(content);
+        bb.order(Constants.BYTE_ORDER);
+        final short level = bb.getShort();
+        return new PowerLevel(level != 0);
+    }
+
     public boolean isPoweredOn() {
-        return level > 0;
+        return level != 0;
     }
 
     public boolean isPoweredOff() {
