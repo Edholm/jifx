@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.MessageConstants;
+import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
@@ -67,8 +67,8 @@ public final class FrameAddress implements Message {
         this.resRequired = b.resRequired;
         this.sequence = b.sequence;
 
-        ByteBuffer bb = ByteBuffer.allocate(MessageConstants.SIZE_FRAME_ADDRESS);
-        bb.order(MessageConstants.BYTE_ORDER);
+        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
+        bb.order(Constants.BYTE_ORDER);
         bb.putLong(target);
         // & with 0xff to get unsigned value
         bb.putLong(ackRequired | resRequired | (sequence & 0xff));

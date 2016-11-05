@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.payloads;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.MessageConstants;
+import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.utils.ByteUtils;
 
@@ -23,7 +23,7 @@ public class SetColor implements Message {
         this.duration = duration;
 
         ByteBuffer bb = ByteBuffer.allocate(5 + color.size());
-        bb.order(MessageConstants.BYTE_ORDER);
+        bb.order(Constants.BYTE_ORDER);
         bb.put((byte) 0); // reserved field
         bb.put(color.getContent());
         bb.putInt(duration);

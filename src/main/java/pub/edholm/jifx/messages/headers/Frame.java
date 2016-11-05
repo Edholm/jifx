@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.MessageConstants;
+import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
@@ -70,8 +70,8 @@ public final class Frame implements Message {
 
 
         short otap = (short) (origin | tagged | addressable | protocol);
-        ByteBuffer buffer = ByteBuffer.allocate(MessageConstants.SIZE_FRAME);
-        buffer.order(MessageConstants.BYTE_ORDER);
+        ByteBuffer buffer = ByteBuffer.allocate(Constants.SIZE_FRAME);
+        buffer.order(Constants.BYTE_ORDER);
         buffer.putShort(size).putShort(otap).putInt(source);
         content = buffer.array();
     }

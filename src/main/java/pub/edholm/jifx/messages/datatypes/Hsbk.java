@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.MessageConstants;
+import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
@@ -82,8 +82,8 @@ public final class Hsbk implements Message {
 
     @Override
     public byte[] getContent() {
-        ByteBuffer bb = ByteBuffer.allocate(MessageConstants.SIZE_HSBK);
-        bb.order(MessageConstants.BYTE_ORDER);
+        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_HSBK);
+        bb.order(Constants.BYTE_ORDER);
         bb.putShort(hue);
         bb.putShort(saturation);
         bb.putShort(brightness);
@@ -93,7 +93,7 @@ public final class Hsbk implements Message {
 
     @Override
     public int size() {
-        return MessageConstants.SIZE_HSBK;
+        return Constants.SIZE_HSBK;
     }
 
     @Override

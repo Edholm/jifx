@@ -34,7 +34,7 @@ public final class ByteUtils {
 
     public static byte[] combineContents(List<Message> messageParts) {
         ByteBuffer byteBuffer = ByteBuffer.allocate(totalSize(messageParts));
-        byteBuffer.order(MessageConstants.BYTE_ORDER);
+        byteBuffer.order(Constants.BYTE_ORDER);
 
         messageParts.forEach(
                 m -> byteBuffer.put(m.getContent())

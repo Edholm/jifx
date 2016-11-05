@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.MessageConstants;
+import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.utils.ByteUtils;
 
@@ -17,8 +17,8 @@ public final class ProtocolHeader implements Message {
 
     public ProtocolHeader(MessageType t) {
         this.type = t;
-        ByteBuffer bb = ByteBuffer.allocate(MessageConstants.SIZE_PROTOCOL_HEADER);
-        bb.order(MessageConstants.BYTE_ORDER);
+        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_PROTOCOL_HEADER);
+        bb.order(Constants.BYTE_ORDER);
         bb.putLong(0);
         bb.putShort(this.type.type());
         bb.putShort((short) 0);

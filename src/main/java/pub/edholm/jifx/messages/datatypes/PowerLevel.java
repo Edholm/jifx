@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.MessageConstants;
+import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
@@ -17,7 +17,7 @@ public class PowerLevel implements Message {
     public PowerLevel(boolean on) {
         this.level = (short) ((on) ? 0xffff : 0);
         ByteBuffer bb = ByteBuffer.allocate(2);
-        bb.order(MessageConstants.BYTE_ORDER);
+        bb.order(Constants.BYTE_ORDER);
         bb.putShort(this.level);
         content = bb.array();
     }
