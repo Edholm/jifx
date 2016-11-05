@@ -1,8 +1,8 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
+import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -45,11 +45,25 @@ public final class Frame implements Message {
             this.size = (short) size;
         }
 
+        /**
+         * Indicates whether the Frame Address target field is being used to address an individual device or all devices
+         * Set to true when broadcasting, else false.
+         */
         public Builder tagged(boolean tagged) {
             this.tagged = (short) ((tagged) ? 1 << TAGGED_POSITION : 0);
             return this;
         }
 
+        /**
+         * The source identifier allows each client to provide an unique value, which will be included by the LIFX
+         * device in any message that is sent in response to a message sent by the client. If the source identifier
+         * is a non-zero value, then the LIFX device will send a unicast message to the IP address and port of the
+         * client that sent the originating message. If the source identifier is a zero value, then the LIFX device
+         * may send a broadcast message that can be received by all clients on the same sub-net.
+         *
+         * @see FrameAddress.Builder#ackRequired(boolean)
+         * @see FrameAddress.Builder#resRequired(boolean)
+         */
         public Builder source(long source) {
             if (source < 0 || source > 0xFFFFFFFFL) {
                 throw new IllegalArgumentException("Source does not fit a uint32: Got: " + source);
@@ -81,12 +95,16 @@ public final class Frame implements Message {
         return content;
     }
 
-    /** Get the total size of the entire message, as specified by the user */
+    /**
+     * Get the total size of the entire message, as specified by the user
+     */
     public int getTotalSize() {
         return this.size;
     }
 
-    /** Get the size of *only* the Frame */
+    /**
+     * Get the size of *only* the Frame
+     */
     @Override
     public int size() {
         return content.length;

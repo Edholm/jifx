@@ -1,8 +1,8 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
+import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -33,21 +33,42 @@ public final class FrameAddress implements Message {
         private int resRequired = 0x0;
         private byte sequence = 0x0;
 
+        /**
+         * The target device address is 8 bytes long, when using the 6 byte MAC address then left-justify the value
+         * and zero-fill the last two bytes. A target device address of all zeroes effectively addresses all devices
+         * on the local network. The Frame tagged field must be set accordingly.
+         *
+         * @see Frame.Builder#tagged(boolean)
+         */
         public Builder target(long target) {
             this.target = target;
             return this;
         }
 
+        /**
+         * Tell the device to that it must respond with Acknowledgement
+         */
         public Builder ackRequired(boolean ackRequired) {
             this.ackRequired = (ackRequired) ? 1 << ACK_REQUIRED_POSITION : 0;
             return this;
         }
 
+        /**
+         * Tell the device to that it must respond with a State message when appropriate
+         */
         public Builder resRequired(boolean resRequired) {
             this.resRequired = (resRequired) ? 1 << RES_REQUIRED_POSITION : 0;
             return this;
         }
 
+        /**
+         * The sequence number allows the client to provide a unique value, which will be included by the LIFX device
+         * in any message that is sent in response to a message sent by the client. This allows the client to
+         * distinguish between different messages sent with the same source identifier in the Frame.
+         *
+         * @see FrameAddress.Builder#ackRequired(boolean)
+         * @see FrameAddress.Builder#resRequired(boolean)
+         */
         public Builder sequence(int sequence) {
             if (sequence < 0 || sequence > 0xFF) {
                 throw new IllegalArgumentException("Sequence larger than is possible. Got: " + sequence);
