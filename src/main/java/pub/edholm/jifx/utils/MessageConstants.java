@@ -1,4 +1,4 @@
-package pub.edholm.jifx.messages;
+package pub.edholm.jifx.utils;
 
 import java.nio.ByteOrder;
 

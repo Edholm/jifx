@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.messages.MessageConstants;
+import pub.edholm.jifx.utils.MessageConstants;
 
 import java.nio.ByteBuffer;
 import java.time.Instant;

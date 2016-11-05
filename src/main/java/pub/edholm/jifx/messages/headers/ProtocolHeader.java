@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.messages.MessageConstants;
+import pub.edholm.jifx.utils.MessageConstants;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.utils.ByteUtils;
 

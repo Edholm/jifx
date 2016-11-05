@@ -2,7 +2,6 @@ package pub.edholm.jifx.utils;
 
 import org.junit.Test;
 import pub.edholm.jifx.messages.Message;
-import pub.edholm.jifx.messages.MessageConstants;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.messages.headers.Frame;
@@ -10,7 +9,6 @@ import pub.edholm.jifx.messages.headers.FrameAddress;
 import pub.edholm.jifx.messages.headers.ProtocolHeader;
 import pub.edholm.jifx.messages.payloads.SetColor;
 
-import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
 
