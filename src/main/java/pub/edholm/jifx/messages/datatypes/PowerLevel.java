@@ -2,8 +2,10 @@ package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.Message;
 import pub.edholm.jifx.messages.MessageConstants;
+import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * Created by Emil Edholm on 2016-11-05.
@@ -20,12 +22,12 @@ public class PowerLevel implements Message {
         content = bb.array();
     }
 
-    public boolean isOn() {
+    public boolean isPoweredOn() {
         return level > 0;
     }
 
-    public boolean isOff() {
-        return !isOn();
+    public boolean isPoweredOff() {
+        return !isPoweredOn();
     }
 
     @Override
@@ -36,5 +38,29 @@ public class PowerLevel implements Message {
     @Override
     public byte[] getContent() {
         return content;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PowerLevel that = (PowerLevel) o;
+
+        return Arrays.equals(content, that.content);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(content);
+    }
+
+    @Override
+    public String toString() {
+        return "PowerLevel{" +
+                "poweredOn=" + isPoweredOn() +
+                ", level=" + ByteUtils.toHexString(level) +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.Message;
 import pub.edholm.jifx.messages.MessageConstants;
+import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
 
@@ -93,5 +94,38 @@ public final class Hsbk implements Message {
     @Override
     public int size() {
         return MessageConstants.SIZE_HSBK;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hsbk hsbk = (Hsbk) o;
+
+        if (hue != hsbk.hue) return false;
+        if (saturation != hsbk.saturation) return false;
+        if (brightness != hsbk.brightness) return false;
+        return kelvin == hsbk.kelvin;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) hue;
+        result = 31 * result + (int) saturation;
+        result = 31 * result + (int) brightness;
+        result = 31 * result + (int) kelvin;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Hsbk{" +
+                "hue=" + ByteUtils.toHexString(hue) +
+                ", saturation=" + ByteUtils.toHexString(saturation) +
+                ", brightness=" + ByteUtils.toHexString(brightness) +
+                ", kelvin=" + kelvin +
+                '}';
     }
 }

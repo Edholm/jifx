@@ -5,6 +5,7 @@ import pub.edholm.jifx.messages.MessageConstants;
 
 import java.nio.ByteBuffer;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,5 +46,29 @@ public class Time implements Message {
     @Override
     public byte[] getContent() {
         return content;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Time time = (Time) o;
+
+        return Arrays.equals(content, time.content);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(content);
+    }
+
+    @Override
+    public String toString() {
+        return "Time{" +
+                "time=" + time +
+                ", parsed=" + getInstant().toString() +
+                '}';
     }
 }
