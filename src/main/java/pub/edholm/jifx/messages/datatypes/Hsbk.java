@@ -80,6 +80,21 @@ public final class Hsbk implements Message {
         return kelvin;
     }
 
+    public static Hsbk valueOf(byte[] content) {
+        ByteBuffer bb = ByteBuffer.wrap(content);
+        bb.order(Constants.BYTE_ORDER);
+        final short hue = bb.getShort();
+        final short saturation = bb.getShort();
+        final short brightness = bb.getShort();
+        final short kelvin = bb.getShort();
+
+        return new Hsbk.Builder()
+                .hue(hue)
+                .saturation(saturation)
+                .brightness(brightness)
+                .kelvin(kelvin).build();
+    }
+
     @Override
     public byte[] getContent() {
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_HSBK);

@@ -10,6 +10,13 @@ import static org.junit.Assert.*;
  */
 public class HsbkTest {
     @Test
+    public void valueOf() throws Exception {
+        Hsbk hsbk = new Hsbk.Builder().hue(0xa).brightness(0xb).saturation(0xc).kelvin(9000).build();
+        Hsbk valueOf = Hsbk.valueOf(hsbk.getContent());
+        assertThat(hsbk, is(valueOf));
+    }
+
+    @Test
     public void getContent() throws Exception {
         final Hsbk hsbk = new Hsbk.Builder().hue(0x5555).saturation(0xA0ED).brightness(0x1122).kelvin(3500).build();
 
