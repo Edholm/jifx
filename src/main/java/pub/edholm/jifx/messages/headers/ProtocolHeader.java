@@ -25,6 +25,15 @@ public final class ProtocolHeader implements Message {
         this.content = bb.array();
     }
 
+    public static ProtocolHeader valueOf(byte[] content) {
+        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_PROTOCOL_HEADER);
+        bb.order(Constants.BYTE_ORDER);
+        bb.put(content);
+
+        final short type = bb.get(8);
+        return new ProtocolHeader(MessageType.valueOf(type));
+    }
+
     public MessageType getType() {
         return type;
     }

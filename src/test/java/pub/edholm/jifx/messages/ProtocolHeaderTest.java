@@ -11,6 +11,13 @@ import static org.junit.Assert.assertThat;
  */
 public class ProtocolHeaderTest {
     @Test
+    public void valueOf() throws Exception {
+        ProtocolHeader protocolHeader = new ProtocolHeader(MessageType.SetColor);
+        ProtocolHeader valueOf = ProtocolHeader.valueOf(protocolHeader.getContent());
+        assertThat(protocolHeader, is(valueOf));
+    }
+
+    @Test
     public void size() throws Exception {
         ProtocolHeader ph = new ProtocolHeader(MessageType.Acknowledgement);
         assertThat(ph.getContent().length, is(12));
