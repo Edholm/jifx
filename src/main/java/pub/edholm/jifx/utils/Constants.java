@@ -7,6 +7,7 @@ import java.nio.ByteOrder;
  */
 public class Constants {
     private Constants() {}
+    public static final int PORT = 56700;
     public static final int SIZE_HSBK = 8;
     public static final int SIZE_PROTOCOL_HEADER = 12;
     public static final int SIZE_FRAME_ADDRESS = 16;
