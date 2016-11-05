@@ -101,7 +101,7 @@ public final class Frame implements Message {
         bb.put(contents);
 
         final short size = bb.getShort(0);
-        final short tagged = (short) (bb.getShort(2) >> TAGGED_POSITION);
+        final short tagged = (short) ((bb.getShort(2) & 0x2000) >> TAGGED_POSITION);
         final int source = bb.getInt(4);
 
         return new Frame.Builder().size(size).source(source).tagged((tagged == 1)).build();
