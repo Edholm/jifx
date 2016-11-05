@@ -81,6 +81,12 @@ public final class Frame implements Message {
         return content;
     }
 
+    /** Get the total size of the entire message, as specified by the user */
+    public int getTotalSize() {
+        return this.size;
+    }
+
+    /** Get the size of *only* the Frame */
     @Override
     public int size() {
         return content.length;
