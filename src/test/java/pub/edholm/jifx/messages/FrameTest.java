@@ -12,7 +12,9 @@ import static org.junit.Assert.assertThat;
 public class FrameTest {
     @Test
     public void valueOf() throws Exception {
-        Frame f = new Frame.Builder().size(34).source(0xeda).tagged(true).build();
+        Frame frame = new Frame.Builder().size(1337).source(0xeda).tagged(true).build();
+        Frame valueOfFrame = Frame.valueOf(frame.getContent());
+        assertThat(frame, is(valueOfFrame));
     }
 
     @Test
