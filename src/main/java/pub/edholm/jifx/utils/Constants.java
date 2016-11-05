@@ -6,6 +6,7 @@ import java.nio.ByteOrder;
  * Created by Emil Edholm on 2016-11-04.
  */
 public class Constants {
+    private Constants() {}
     public static final int SIZE_HSBK = 8;
     public static final int SIZE_PROTOCOL_HEADER = 12;
     public static final int SIZE_FRAME_ADDRESS = 16;
