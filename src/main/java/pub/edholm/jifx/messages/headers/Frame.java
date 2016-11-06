@@ -34,7 +34,8 @@ public final class Frame implements Message {
     private final int source;
 
     public static class Builder {
-        private short size = Constants.SIZE_FRAME + Constants.SIZE_FRAME_ADDRESS + Constants.SIZE_PROTOCOL_HEADER;
+        private static final short TOTAL_HEADER_SIZE = Constants.SIZE_FRAME + Constants.SIZE_FRAME_ADDRESS + Constants.SIZE_PROTOCOL_HEADER;
+        private short size = TOTAL_HEADER_SIZE;
         private short tagged = 0;
         private int source = 0;
 
@@ -47,6 +48,17 @@ public final class Frame implements Message {
                 throw new IllegalArgumentException("Invalid size: Got: " + size);
             }
             this.size = (short) size;
+            return this;
+        }
+
+        /**
+         * Sets the size as the header size + the supplied payload size
+         */
+        public Builder payloadSize(int size) {
+            if (size < 0 || size > 0xFFDB) {
+                throw new IllegalArgumentException("Invalid size: Got: " + size);
+            }
+            this.size = (short) (TOTAL_HEADER_SIZE + size);
             return this;
         }
 
