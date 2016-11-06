@@ -1,0 +1,35 @@
+package pub.edholm.jifx.messages.payloads;
+
+import org.junit.Test;
+import pub.edholm.jifx.messages.datatypes.Hsbk;
+import pub.edholm.jifx.messages.datatypes.PowerLevel;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+/**
+ * Created by Emil Edholm on 2016-11-05.
+ */
+public class StateTest {
+    @Test
+    public void valueOf() throws Exception {
+        Hsbk hsbk = new Hsbk.Builder().build();
+        PowerLevel pl = new PowerLevel(true);
+        State s = new State(hsbk, pl, "apa bepa");
+
+        State valueOf = State.valueOf(s.getContent());
+        System.out.println(s.getLabel());
+        System.out.println(valueOf.getLabel());
+        assertThat(s, is(valueOf));
+    }
+
+    @Test
+    public void getContent() throws Exception {
+        Hsbk hsbk = new Hsbk.Builder().build();
+        PowerLevel pl = new PowerLevel(true);
+        State s = new State(hsbk, pl, "apa bepa");
+
+        System.out.println(s);
+    }
+
+}
