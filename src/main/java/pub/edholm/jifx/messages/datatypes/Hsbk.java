@@ -52,7 +52,7 @@ public final class Hsbk implements Message {
 
         private void checkValueBounds(int value) {
             if (value < 0 || value > 0xFFFF) {
-                throw new IllegalArgumentException("Invalid value. Got: " + value);
+                throw new IllegalArgumentException("Invalid value. Got: " + ByteUtils.toHexString(value));
             }
         }
     }
