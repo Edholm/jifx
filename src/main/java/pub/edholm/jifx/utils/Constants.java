@@ -9,6 +9,7 @@ public class Constants {
     private Constants() {}
     public static final int PORT = 56700;
 
+    public static final int SIZE_INFRARED = 2;
     public static final int SIZE_SET_LIGHT_POWER = 6;
     public static final int SIZE_STATE = 56;
     public static final int SIZE_POWER_LEVEL = 2;
