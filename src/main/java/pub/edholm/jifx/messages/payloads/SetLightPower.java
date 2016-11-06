@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.utils.Constants;
 
@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
-public class SetLightPower implements Message {
+public class SetLightPower implements MessagePart {
     private final PowerLevel level;
     private final int duration;
 

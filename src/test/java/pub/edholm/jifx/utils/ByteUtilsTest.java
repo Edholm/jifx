@@ -1,7 +1,7 @@
 package pub.edholm.jifx.utils;
 
 import org.junit.Test;
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.messages.headers.Frame;
@@ -19,16 +19,16 @@ import static org.junit.Assert.*;
  * Created by Emil Edholm on 2016-11-05.
  */
 public class ByteUtilsTest {
-    private final Message m1 = new Frame.Builder().size(49).tagged(true).build();
-    private final Message m2 = new FrameAddress.Builder().build();
-    private final Message m3 = new ProtocolHeader(MessageType.SetColor);
-    private final Message m4 = new SetColor(new Hsbk.Builder().hue(0x5555).kelvin(3500).build(), 1024);
+    private final MessagePart m1 = new Frame.Builder().size(49).tagged(true).build();
+    private final MessagePart m2 = new FrameAddress.Builder().build();
+    private final MessagePart m3 = new ProtocolHeader(MessageType.SetColor);
+    private final MessagePart m4 = new SetColor(new Hsbk.Builder().hue(0x5555).kelvin(3500).build(), 1024);
 
     @Test
     public void totalSize() throws Exception {
         int expectedSize = m1.size() + m2.size() + m3.size() + m4.size();
-        List<Message> messages = Arrays.asList(m1, m2, m3, m4);
-        int calculatedSize = ByteUtils.totalSize(messages);
+        List<MessagePart> messageParts = Arrays.asList(m1, m2, m3, m4);
+        int calculatedSize = ByteUtils.totalSize(messageParts);
 
         System.out.println("Expected: " + expectedSize + ", Calculated: " + calculatedSize);
         assertThat(calculatedSize, is(expectedSize));

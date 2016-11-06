@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.datatypes.Service;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
  *
  * @see <a href="https://lan.developer.lifx.com/docs/device-messages#section-stateservice-3">API docs</a>
  */
-public class StateService implements Message {
+public class StateService implements MessagePart {
     private static final int SIZE = 5;
     private final Service service;
     private final int port;

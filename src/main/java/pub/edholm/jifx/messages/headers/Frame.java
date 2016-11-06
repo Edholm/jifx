@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.headers;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
@@ -17,7 +17,7 @@ import java.util.Arrays;
  * The Frame is 8 bytes long (64 bits)
  * Created by Emil Edholm on 2016-11-01.
  */
-public final class Frame implements Message {
+public final class Frame implements MessagePart {
     /**
      * Total size of the Frame in in bytes
      */

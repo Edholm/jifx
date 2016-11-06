@@ -1,6 +1,6 @@
 package pub.edholm.jifx.utils;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -25,14 +25,14 @@ public final class ByteUtils {
         return "0x" + String.format(HEX_FORMAT, s);
     }
 
-    public static int totalSize(List<Message> messageParts) {
+    public static int totalSize(List<MessagePart> messageParts) {
         return messageParts
                 .stream()
-                .map(Message::size)
+                .map(MessagePart::size)
                 .reduce(0, (sum, size) -> sum + size);
     }
 
-    public static byte[] combineContents(List<Message> messageParts) {
+    public static byte[] combineContents(List<MessagePart> messageParts) {
         ByteBuffer byteBuffer = ByteBuffer.allocate(totalSize(messageParts));
         byteBuffer.order(Constants.BYTE_ORDER);
 

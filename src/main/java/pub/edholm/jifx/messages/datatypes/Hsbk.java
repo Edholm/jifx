@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.datatypes;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
 
@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
  * <p>
  * Created by Emil Edholm on 2016-11-04.
  */
-public final class Hsbk implements Message {
+public final class Hsbk implements MessagePart {
     private final short hue, saturation, brightness, kelvin;
 
     public static final class Builder {

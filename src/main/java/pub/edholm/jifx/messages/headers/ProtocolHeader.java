@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.headers;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.utils.ByteUtils;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  * Created by Emil Edholm on 2016-11-04.
  */
-public final class ProtocolHeader implements Message {
+public final class ProtocolHeader implements MessagePart {
     private final MessageType type;
     private final byte[] content;
 

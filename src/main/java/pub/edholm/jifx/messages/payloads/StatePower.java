@@ -1,13 +1,13 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.utils.Constants;
 
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
-public class StatePower implements Message {
+public class StatePower implements MessagePart {
     private final PowerLevel level;
 
     public StatePower(PowerLevel level) {

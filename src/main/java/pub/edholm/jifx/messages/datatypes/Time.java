@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.datatypes;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Emil Edholm on 2016-11-05.
  */
-public class Time implements Message {
+public class Time implements MessagePart {
     private final long time;
     private final byte[] content;
 

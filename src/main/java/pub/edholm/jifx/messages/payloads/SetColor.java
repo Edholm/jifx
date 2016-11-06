@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.utils.ByteUtils;
@@ -13,7 +13,7 @@ import java.util.Arrays;
  *
  * Created by Emil Edholm on 2016-11-05.
  */
-public class SetColor implements Message {
+public class SetColor implements MessagePart {
     private final Hsbk color;
     private final int duration;
     private final byte[] content;

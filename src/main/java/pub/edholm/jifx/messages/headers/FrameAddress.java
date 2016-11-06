@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.headers;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
@@ -12,12 +12,12 @@ import java.util.Arrays;
  * Target device address
  * Acknowledgement message is required flag
  * State response message is required flag
- * Message sequence number
+ * MessagePart sequence number
  * <p>
  * The FrameAddress is 16 byte long (128 bits)
  * Created by Emil Edholm on 2016-11-04.
  */
-public final class FrameAddress implements Message {
+public final class FrameAddress implements MessagePart {
     private static final int ACK_REQUIRED_POSITION = 9;
     private static final int RES_REQUIRED_POSITION = 8;
     private final long target;

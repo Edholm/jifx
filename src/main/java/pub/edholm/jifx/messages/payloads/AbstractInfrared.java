@@ -1,6 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.Message;
+import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
-abstract class AbstractInfrared implements Message {
+abstract class AbstractInfrared implements MessagePart {
     private final short brightness;
 
     public AbstractInfrared(short brightness) {
