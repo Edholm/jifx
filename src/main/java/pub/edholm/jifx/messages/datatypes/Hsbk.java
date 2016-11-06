@@ -21,19 +21,16 @@ public final class Hsbk implements Message {
         private short kelvin = 5000;
 
         public Builder hue(int hue) {
-            checkValueBounds(hue);
-            this.hue = (short) hue;
+            this.hue = (short)(hue);
             return this;
         }
 
         public Builder saturation(int saturation) {
-            checkValueBounds(saturation);
             this.saturation = (short) saturation;
             return this;
         }
 
         public Builder brightness(int brightness) {
-            checkValueBounds(brightness);
             this.brightness = (short) brightness;
             return this;
         }
@@ -48,12 +45,6 @@ public final class Hsbk implements Message {
 
         public Hsbk build() {
             return new Hsbk(this);
-        }
-
-        private void checkValueBounds(int value) {
-            if (value < 0 || value > 0xFFFF) {
-                throw new IllegalArgumentException("Invalid value. Got: " + ByteUtils.toHexString(value));
-            }
         }
     }
 
@@ -83,10 +74,10 @@ public final class Hsbk implements Message {
     public static Hsbk valueOf(byte[] content) {
         ByteBuffer bb = ByteBuffer.wrap(content);
         bb.order(Constants.BYTE_ORDER);
-        final short hue = bb.getShort();
-        final short saturation = bb.getShort();
-        final short brightness = bb.getShort();
-        final short kelvin = bb.getShort();
+        final short hue = (short) (bb.getShort());
+        final short saturation = (short) (bb.getShort());
+        final short brightness = (short) (bb.getShort());
+        final short kelvin = (short) (bb.getShort());
 
         return new Hsbk.Builder()
                 .hue(hue)

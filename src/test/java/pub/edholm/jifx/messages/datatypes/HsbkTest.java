@@ -13,7 +13,11 @@ public class HsbkTest {
     public void valueOf() throws Exception {
         Hsbk hsbk = new Hsbk.Builder().hue(0xa).brightness(0xb).saturation(0xc).kelvin(9000).build();
         Hsbk valueOf = Hsbk.valueOf(hsbk.getContent());
-        assertThat(hsbk, is(valueOf));
+        assertThat(valueOf, is(hsbk));
+
+        hsbk = new Hsbk.Builder().build();
+        valueOf = Hsbk.valueOf(hsbk.getContent());
+        assertThat(valueOf, is(hsbk));
     }
 
     @Test
