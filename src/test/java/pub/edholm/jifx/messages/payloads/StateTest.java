@@ -15,11 +15,9 @@ public class StateTest {
     public void valueOf() throws Exception {
         Hsbk hsbk = new Hsbk.Builder().build();
         PowerLevel pl = new PowerLevel(true);
-        State s = new State(hsbk, pl, "apa bepa");
 
+        State s = new State(hsbk, pl, "apa bepa");
         State valueOf = State.valueOf(s.getContent());
-        System.out.println(s.getLabel());
-        System.out.println(valueOf.getLabel());
         assertThat(s, is(valueOf));
     }
 
