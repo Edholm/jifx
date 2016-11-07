@@ -11,6 +11,10 @@ import java.util.List;
 public final class ByteUtils {
     private static final String HEX_FORMAT = "%02x ";
 
+    private ByteUtils() {
+        throw new AssertionError("You mustn't create an instance of this class");
+    }
+
     public static String toHexString(byte[] array) {
         StringBuilder sb = new StringBuilder();
         sb.append("0x");
