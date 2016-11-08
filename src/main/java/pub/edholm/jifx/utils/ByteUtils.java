@@ -29,14 +29,14 @@ public final class ByteUtils {
         return "0x" + String.format(HEX_FORMAT, s);
     }
 
-    public static int totalSize(List<MessagePart> messageParts) {
+    public static int totalSize(List<? extends MessagePart> messageParts) {
         return messageParts
                 .stream()
                 .map(MessagePart::size)
                 .reduce(0, (sum, size) -> sum + size);
     }
 
-    public static byte[] combineContents(List<MessagePart> messageParts) {
+    public static byte[] combineContents(List<? extends MessagePart> messageParts) {
         ByteBuffer byteBuffer = ByteBuffer.allocate(totalSize(messageParts));
         byteBuffer.order(Constants.BYTE_ORDER);
 
