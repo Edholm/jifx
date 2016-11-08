@@ -64,4 +64,12 @@ public class SetLightPower implements MessagePart {
         result = 31 * result + duration;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "SetLightPower{" +
+                "level=" + level +
+                ", duration=" + duration +
+                '}';
+    }
 }
