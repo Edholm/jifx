@@ -1,43 +1,70 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.MessagePart;
+import pub.edholm.jifx.messages.AbstractBuilder;
+import pub.edholm.jifx.messages.AbstractMessage;
+import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
+import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
  * Created by Emil Edholm on 2016-11-05.
  */
-public class State implements MessagePart {
+public class State extends AbstractMessage {
     private final Hsbk color;
     private final PowerLevel power;
     private final String label;
-    private final byte[] content;
 
-    public State(Hsbk color, PowerLevel power, String label) throws UnsupportedEncodingException {
+    private State(Header header, byte[] payloadContent, Hsbk color, PowerLevel power, String label) {
+        super(header, payloadContent);
         this.color = color;
         this.power = power;
         this.label = label;
+    }
 
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_STATE);
-        bb.order(Constants.BYTE_ORDER);
-        bb.put(color.getContent());
-        bb.putShort((short) 0);
-        bb.put(power.getContent());
+    public static class Builder extends AbstractBuilder<State, Builder> {
+        private final Hsbk color;
+        private final PowerLevel power;
+        private final String label;
 
-        ByteBuffer labelBuffer = ByteBuffer.allocate(32);
-        labelBuffer.order(Constants.BYTE_ORDER);
-        labelBuffer.put(label.getBytes("UTF-8"));
+        public Builder(Hsbk color, PowerLevel power, String label) {
+            super(MessageType.State, Constants.SIZE_STATE);
+            this.color = color;
+            this.power = power;
+            this.label = label;
+        }
 
-        bb.put(labelBuffer.array());
-        bb.putLong(0);
+        /* TODO: delegate Hsbk builder if needed */
 
-        this.content = bb.array();
+        @Override
+        public State build() {
+            ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_STATE);
+            bb.order(Constants.BYTE_ORDER);
+            bb.put(color.getContent());
+            bb.putShort((short) 0);
+            bb.put(power.getContent());
+
+            ByteBuffer labelBuffer = ByteBuffer.allocate(32);
+            labelBuffer.order(Constants.BYTE_ORDER);
+            labelBuffer.put(label.getBytes(StandardCharsets.UTF_8));
+
+            bb.put(labelBuffer.array());
+            bb.putLong(0);
+
+            return new State(buildHeader(), bb.array(), color, power, label);
+        }
+
+        @Override
+        protected Builder thisObject() {
+            return this;
+        }
     }
 
     public static State valueOf(byte[] content) throws UnsupportedEncodingException {
@@ -58,7 +85,7 @@ public class State implements MessagePart {
         PowerLevel powerLevel = PowerLevel.valueOf(powerLevelContent);
         String label = new String(Arrays.copyOf(labelContent, indexOf(labelContent, (byte) 0)), "UTF-8");
 
-        return new State(hsbk, powerLevel, label);
+        return new State.Builder(hsbk, powerLevel, label).build();
     }
 
     private static int indexOf(byte[] content, byte value) {
@@ -71,7 +98,6 @@ public class State implements MessagePart {
     }
 
     public Hsbk getColor() {
-
         return color;
     }
 
@@ -84,16 +110,6 @@ public class State implements MessagePart {
     }
 
     @Override
-    public int size() {
-        return Constants.SIZE_STATE;
-    }
-
-    @Override
-    public byte[] getContent() {
-        return content;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -103,8 +119,7 @@ public class State implements MessagePart {
         if (color != null ? !color.equals(state.color) : state.color != null) return false;
         if (power != null ? !power.equals(state.power) : state.power != null) return false;
         if (label != null ? !label.equals(state.label) : state.label != null) return false;
-        return Arrays.equals(content, state.content);
-
+        return Arrays.equals(getPayload(), state.getPayload());
     }
 
     @Override
@@ -112,7 +127,7 @@ public class State implements MessagePart {
         int result = color != null ? color.hashCode() : 0;
         result = 31 * result + (power != null ? power.hashCode() : 0);
         result = 31 * result + (label != null ? label.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(content);
+        result = 31 * result + Arrays.hashCode(getPayload());
         return result;
     }
 
@@ -122,7 +137,7 @@ public class State implements MessagePart {
                 "color=" + color +
                 ", power=" + power +
                 ", label='" + label + '\'' +
-                ", content=" + ByteUtils.toHexString(content) +
+                ", content=" + ByteUtils.toHexString(getPayload()) +
                 '}';
     }
 }

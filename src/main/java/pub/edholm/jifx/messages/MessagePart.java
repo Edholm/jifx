@@ -5,5 +5,6 @@ package pub.edholm.jifx.messages;
  */
 public interface MessagePart {
     int size();
+
     byte[] getContent();
 }

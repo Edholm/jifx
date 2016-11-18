@@ -1,6 +1,7 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.MessagePart;
+import pub.edholm.jifx.messages.AbstractMessage;
+import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -8,10 +9,11 @@ import java.nio.ByteBuffer;
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
-abstract class AbstractInfrared implements MessagePart {
+abstract class AbstractInfrared extends AbstractMessage {
     private final short brightness;
 
-    public AbstractInfrared(short brightness) {
+    protected AbstractInfrared(Header header, short brightness) {
+        super(header, AbstractInfrared.toByteArray(brightness));
         this.brightness = brightness;
     }
 
@@ -25,22 +27,13 @@ abstract class AbstractInfrared implements MessagePart {
         return bb.getShort();
     }
 
-    @Override
-    public int size() {
-        return Constants.SIZE_INFRARED;
-    }
-
-    @Override
-    public byte[] getContent() {
+    private static byte[] toByteArray(short brightness) {
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_INFRARED);
         bb.order(Constants.BYTE_ORDER);
         bb.putShort(brightness);
 
         return bb.array();
     }
-
-    @Override
-    abstract public String toString();
 
     @Override
     public boolean equals(Object o) {

@@ -1,9 +1,9 @@
 package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.messages.MessagePart;
-import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.utils.ByteUtils;
+import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;

@@ -1,7 +1,10 @@
 package pub.edholm.jifx.messages.payloads;
 
-import pub.edholm.jifx.messages.MessagePart;
+import pub.edholm.jifx.messages.AbstractBuilder;
+import pub.edholm.jifx.messages.AbstractMessage;
+import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
+import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -9,13 +12,42 @@ import java.nio.ByteBuffer;
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
-public class SetLightPower implements MessagePart {
+public class SetLightPower extends AbstractMessage {
     private final PowerLevel level;
     private final int duration;
 
-    public SetLightPower(PowerLevel level, int duration) {
+    private SetLightPower(Header header, byte[] payloadContent, PowerLevel level, int duration) {
+        super(header, payloadContent);
         this.level = level;
         this.duration = duration;
+    }
+
+    public static class Builder extends AbstractBuilder<SetLightPower, Builder> {
+        private final PowerLevel powerLevel;
+        private final int duration;
+
+        public Builder(boolean powerOn, int duration) {
+            super(MessageType.SetLightPower, Constants.SIZE_SET_LIGHT_POWER);
+            this.powerLevel = new PowerLevel(powerOn);
+            this.duration = duration;
+        }
+
+        @Override
+        public SetLightPower build() {
+            ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_SET_LIGHT_POWER);
+            bb.order(Constants.BYTE_ORDER);
+
+            bb.put(powerLevel.getContent());
+            bb.putInt(duration);
+            byte[] content = bb.array();
+
+            return new SetLightPower(buildHeader(), content, powerLevel, duration);
+        }
+
+        @Override
+        protected Builder thisObject() {
+            return this;
+        }
     }
 
     public static SetLightPower valueOf(byte[] content) {
@@ -27,23 +59,7 @@ public class SetLightPower implements MessagePart {
 
         final int duration = bb.getInt();
 
-        return new SetLightPower(PowerLevel.valueOf(powerLevelContent), duration);
-    }
-
-    @Override
-    public int size() {
-        return Constants.SIZE_SET_LIGHT_POWER;
-    }
-
-    @Override
-    public byte[] getContent() {
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_SET_LIGHT_POWER);
-        bb.order(Constants.BYTE_ORDER);
-
-        bb.put(level.getContent());
-        bb.putInt(duration);
-
-        return bb.array();
+        return new SetLightPower.Builder(PowerLevel.valueOf(powerLevelContent).isPoweredOn(), duration).build();
     }
 
     @Override
@@ -53,9 +69,7 @@ public class SetLightPower implements MessagePart {
 
         SetLightPower that = (SetLightPower) o;
 
-        if (duration != that.duration) return false;
-        return level.equals(that.level);
-
+        return duration == that.duration && level.equals(that.level);
     }
 
     @Override

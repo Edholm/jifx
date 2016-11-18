@@ -41,6 +41,7 @@ public final class Frame implements MessagePart {
 
         /**
          * The total size of the entire message going out the wire, including the payload
+         * <br />
          * Defaults to combined size of all the header messages: 36 bytes.
          */
         public Builder size(int size) {
@@ -64,6 +65,7 @@ public final class Frame implements MessagePart {
 
         /**
          * Indicates whether the Frame Address target field is being used to address an individual device or all devices
+         * <br />
          * Set to true when broadcasting, else false.
          */
         public Builder tagged(boolean tagged) {
@@ -129,6 +131,26 @@ public final class Frame implements MessagePart {
      */
     public int getTotalSize() {
         return this.size;
+    }
+
+    public short getOrigin() {
+        return origin;
+    }
+
+    public boolean isTagged() {
+        return tagged > 0;
+    }
+
+    public short getAddressable() {
+        return addressable;
+    }
+
+    public short getProtocol() {
+        return protocol;
+    }
+
+    public int getSource() {
+        return source;
     }
 
     /**

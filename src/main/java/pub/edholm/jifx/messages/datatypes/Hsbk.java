@@ -1,8 +1,8 @@
 package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.MessagePart;
-import pub.edholm.jifx.utils.Constants;
 import pub.edholm.jifx.utils.ByteUtils;
+import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
 
@@ -21,7 +21,7 @@ public final class Hsbk implements MessagePart {
         private short kelvin = 5000;
 
         public Builder hue(int hue) {
-            this.hue = (short)(hue);
+            this.hue = (short) (hue);
             return this;
         }
 

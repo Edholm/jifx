@@ -113,6 +113,22 @@ public final class FrameAddress implements MessagePart {
                 .resRequired(resReq == 1).build();
     }
 
+    public long getTarget() {
+        return target;
+    }
+
+    public boolean isAckRequired() {
+        return ackRequired > 0;
+    }
+
+    public boolean isResRequired() {
+        return resRequired > 0;
+    }
+
+    public byte getSequence() {
+        return sequence;
+    }
+
     @Override
     public byte[] getContent() {
         return content;
