@@ -67,25 +67,28 @@ public class State extends AbstractMessage {
         }
     }
 
-    public static State valueOf(byte[] content) throws UnsupportedEncodingException {
-        ByteBuffer bb = ByteBuffer.wrap(content);
+    public static State valueOf(byte[] content) {
+        ByteBuffer bb = ByteBuffer.wrap(content, Constants.SIZE_HEADER, Constants.SIZE_STATE);
         bb.order(Constants.BYTE_ORDER);
 
-        byte[] hsbkContents = new byte[Constants.SIZE_HSBK];
+        final Header h = Header.valueOf(content);
+        final byte[] payloadContent = Arrays.copyOfRange(content, Constants.SIZE_HEADER, content.length);
+
+        final byte[] hsbkContents = new byte[Constants.SIZE_HSBK];
         bb.get(hsbkContents, 0, Constants.SIZE_HSBK);
 
         bb.getShort();
-        byte[] powerLevelContent = new byte[Constants.SIZE_POWER_LEVEL];
+        final byte[] powerLevelContent = new byte[Constants.SIZE_POWER_LEVEL];
         bb.get(powerLevelContent, 0, Constants.SIZE_POWER_LEVEL);
 
-        byte[] labelContent = new byte[32];
+        final byte[] labelContent = new byte[32];
         bb.get(labelContent, 0, 32);
 
-        Hsbk hsbk = Hsbk.valueOf(hsbkContents);
-        PowerLevel powerLevel = PowerLevel.valueOf(powerLevelContent);
-        String label = new String(Arrays.copyOf(labelContent, indexOf(labelContent, (byte) 0)), "UTF-8");
+        final Hsbk hsbk = Hsbk.valueOf(hsbkContents);
+        final PowerLevel powerLevel = PowerLevel.valueOf(powerLevelContent);
+        final String label = new String(Arrays.copyOf(labelContent, indexOf(labelContent, (byte) 0)), StandardCharsets.UTF_8);
 
-        return new State.Builder(hsbk, powerLevel, label).build();
+        return new State(h, payloadContent, hsbk, powerLevel, label);
     }
 
     private static int indexOf(byte[] content, byte value) {
