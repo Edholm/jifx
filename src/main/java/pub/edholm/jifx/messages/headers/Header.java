@@ -3,9 +3,11 @@ package pub.edholm.jifx.messages.headers;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * The header of a Lifx message without the payload part
@@ -18,10 +20,10 @@ public class Header implements MessagePart {
 
     private final byte[] contents;
 
-    private Header(Builder b) {
-        this.frame = b.buildFrame();
-        this.frameAddress = b.buildFrameAddress();
-        this.protocolHeader = b.buildProtocolHeader();
+    private Header(Frame f, FrameAddress fa, ProtocolHeader ph) {
+        this.frame = f;
+        this.frameAddress = fa;
+        this.protocolHeader = ph;
 
         ByteBuffer bb = ByteBuffer.allocate(frame.size() + frameAddress.size() + protocolHeader.size());
         bb.order(Constants.BYTE_ORDER);
@@ -29,6 +31,10 @@ public class Header implements MessagePart {
         bb.put(frameAddress.getContent());
         bb.put(protocolHeader.getContent());
         this.contents = bb.array();
+    }
+
+    private Header(Builder b) {
+        this(b.buildFrame(), b.buildFrameAddress(), b.buildProtocolHeader());
     }
 
     public static class Builder extends AbstractBuilder<Header, Builder> {
@@ -67,7 +73,22 @@ public class Header implements MessagePart {
     }
 
     public static Header valueOf(byte[] content) {
-        throw new AssertionError("Not implemented");
+        final ByteBuffer buffer = ByteBuffer.wrap(content);
+        buffer.order(Constants.BYTE_ORDER);
+
+        final byte[] frameContents = new byte[Constants.SIZE_FRAME];
+        final byte[] frameAddressContents = new byte[Constants.SIZE_FRAME_ADDRESS];
+        final byte[] protocolHeaderContents = new byte[Constants.SIZE_PROTOCOL_HEADER];
+
+        buffer.get(frameContents, 0, frameContents.length);
+        buffer.get(frameAddressContents, 0, frameAddressContents.length);
+        buffer.get(protocolHeaderContents, 0, protocolHeaderContents.length);
+
+        final Frame f = Frame.valueOf(frameContents);
+        final FrameAddress fa = FrameAddress.valueOf(frameAddressContents);
+        final ProtocolHeader ph = ProtocolHeader.valueOf(protocolHeaderContents);
+
+        return new Header(f, fa, ph);
     }
 
     public int getTotalSize() {
@@ -122,5 +143,35 @@ public class Header implements MessagePart {
     @Override
     public byte[] getContent() {
         return contents;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Header header = (Header) o;
+
+        return frame.equals(header.frame)
+                && frameAddress.equals(header.frameAddress)
+                && protocolHeader.equals(header.protocolHeader);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = frame.hashCode();
+        result = 31 * result + frameAddress.hashCode();
+        result = 31 * result + protocolHeader.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Header{" +
+                "frame=" + frame +
+                ", frameAddress=" + frameAddress +
+                ", protocolHeader=" + protocolHeader +
+                ", contents=" + ByteUtils.toHexString(contents) +
+                '}';
     }
 }
