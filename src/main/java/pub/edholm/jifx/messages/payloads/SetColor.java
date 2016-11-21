@@ -45,7 +45,7 @@ public class SetColor extends AbstractMessage implements Message {
         }
 
         public Builder kelvin(int kelvin) {
-            this.kelvin(kelvin);
+            this.hsbkBuilder.kelvin(kelvin);
             return thisObject();
         }
 
