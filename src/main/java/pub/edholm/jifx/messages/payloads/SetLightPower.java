@@ -8,6 +8,7 @@ import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * Created by Emil Edholm on 2016-11-06.
@@ -51,7 +52,10 @@ public class SetLightPower extends AbstractMessage {
     }
 
     public static SetLightPower valueOf(byte[] content) {
-        ByteBuffer bb = ByteBuffer.wrap(content);
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_SET_LIGHT_POWER);
+        final Header h = Header.valueOf(content);
+
+        ByteBuffer bb = ByteBuffer.wrap(payload);
         bb.order(Constants.BYTE_ORDER);
 
         byte[] powerLevelContent = new byte[Constants.SIZE_POWER_LEVEL];
@@ -59,7 +63,7 @@ public class SetLightPower extends AbstractMessage {
 
         final int duration = bb.getInt();
 
-        return new SetLightPower.Builder(PowerLevel.valueOf(powerLevelContent).isPoweredOn(), duration).build();
+        return new SetLightPower(h, payload, PowerLevel.valueOf(powerLevelContent), duration);
     }
 
     @Override

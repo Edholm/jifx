@@ -5,6 +5,8 @@ import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.Constants;
 
+import java.util.Arrays;
+
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
@@ -34,7 +36,11 @@ public class SetInfrared extends AbstractInfrared {
     }
 
     public static SetInfrared valueOf(byte[] content) {
-        return new SetInfrared.Builder(AbstractInfrared.parse(content)).build();
+        final Header h = Header.valueOf(content);
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_INFRARED);
+        final short brightness = AbstractInfrared.parse(payload);
+
+        return new SetInfrared(h, brightness);
     }
 
     @Override

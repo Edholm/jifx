@@ -7,6 +7,8 @@ import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.Constants;
 
+import java.util.Arrays;
+
 /**
  * Created by Emil Edholm on 2016-11-06.
  */
@@ -38,9 +40,11 @@ public class StatePower extends AbstractMessage {
     }
 
     public static StatePower valueOf(byte[] content) {
-        final PowerLevel level = PowerLevel.valueOf(content);
-        // TODO: light or device?
-        return new StatePower.Builder(false, level.isPoweredOn()).build();
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_POWER_LEVEL);
+        final Header h = Header.valueOf(content);
+
+        final PowerLevel level = PowerLevel.valueOf(payload);
+        return new StatePower(h, payload, level);
     }
 
     public PowerLevel getLevel() {
