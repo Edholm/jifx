@@ -9,6 +9,7 @@ import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * Response to GetService message.
@@ -23,10 +24,10 @@ public class StateService extends AbstractMessage {
     private final Service service;
     private final int port;
 
-    private StateService(Header header, byte[] payloadContent, Builder b) {
+    private StateService(Header header, byte[] payloadContent, Service s, int port) {
         super(header, payloadContent);
-        this.service = b.service;
-        this.port = b.port;
+        this.service = s;
+        this.port = port;
     }
 
     public static class Builder extends AbstractBuilder<StateService, Builder> {
@@ -46,7 +47,7 @@ public class StateService extends AbstractMessage {
             bb.put(service.getValue());
             bb.putInt(port);
 
-            return new StateService(buildHeader(), bb.array(), this);
+            return new StateService(buildHeader(), bb.array(), service, port);
         }
 
         @Override
@@ -56,14 +57,15 @@ public class StateService extends AbstractMessage {
     }
 
     public static StateService valueOf(byte[] content) {
-        ByteBuffer buffer = ByteBuffer.allocate(SIZE);
+        ByteBuffer buffer = ByteBuffer.wrap(content, Constants.SIZE_HEADER, SIZE);
         buffer.order(Constants.BYTE_ORDER);
-        buffer.put(content);
 
-        final byte service = buffer.get(0);
-        final int port = buffer.getInt(1);
+        final byte[] payloadContent = Arrays.copyOfRange(content, Constants.SIZE_HEADER, content.length);
+        final byte service = buffer.get();
+        final int port = buffer.getInt();
 
-        return new StateService.Builder(Service.valueOf(service), port).build();
+        final Header h = Header.valueOf(content);
+        return new StateService(h, payloadContent, Service.valueOf(service), port);
     }
 
     public Service getService() {
@@ -83,7 +85,7 @@ public class StateService extends AbstractMessage {
         return "StateService{" +
                 "service=" + service +
                 ", port=" + port +
-                ", content=" + ByteUtils.toHexString(getContent()) +
+                ", payload=" + ByteUtils.toHexString(getPayload()) +
                 ", header=" + getHeader() +
                 '}';
     }

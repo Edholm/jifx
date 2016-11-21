@@ -24,7 +24,7 @@ public class StateServiceTest {
                 0x01, 0x00, 0x01, 0x00, 0x00
         };
         System.out.println(ss);
-        assertThat(ss.getContent(), is(expected));
+        assertThat(ss.getPayload(), is(expected));
     }
 
     @Test
