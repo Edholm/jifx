@@ -16,7 +16,7 @@ public class StateTest {
         Hsbk hsbk = new Hsbk.Builder().build();
         PowerLevel pl = new PowerLevel(true);
 
-        State s = new State(hsbk, pl, "apa bepa");
+        State s = new State.Builder(hsbk, pl, "apa bepa").build();
         State valueOf = State.valueOf(s.getContent());
         assertThat(s, is(valueOf));
     }
@@ -25,7 +25,7 @@ public class StateTest {
     public void getContent() throws Exception {
         Hsbk hsbk = new Hsbk.Builder().build();
         PowerLevel pl = new PowerLevel(true);
-        State s = new State(hsbk, pl, "apa bepa");
+        State s = new State.Builder(hsbk, pl, "apa bepa").build();
 
         System.out.println(s);
     }

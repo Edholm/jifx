@@ -22,7 +22,7 @@ public class ByteUtilsTest {
     private final MessagePart m1 = new Frame.Builder().size(49).tagged(true).build();
     private final MessagePart m2 = new FrameAddress.Builder().build();
     private final MessagePart m3 = new ProtocolHeader(MessageType.SetColor);
-    private final MessagePart m4 = new SetColor(new Hsbk.Builder().hue(0x5555).kelvin(3500).build(), 1024);
+    private final MessagePart m4 = new SetColor.Builder().hue(0x5555).kelvin(3500).build();
 
     @Test
     public void totalSize() throws Exception {

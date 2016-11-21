@@ -28,6 +28,7 @@ public class SetColor extends AbstractMessage implements Message {
     public static class Builder extends AbstractBuilder<SetColor, Builder> {
         private int duration = 1024;
         private Hsbk.Builder hsbkBuilder = new Hsbk.Builder();
+        private Hsbk optionalHsbk;
 
         public Builder() {
             super(MessageType.SetColor, Constants.SIZE_SET_COLOR);
@@ -36,6 +37,11 @@ public class SetColor extends AbstractMessage implements Message {
         public Builder duration(int duration) {
             this.duration = duration;
             return thisObject();
+        }
+
+        public Builder hsbk(Hsbk hsbk) {
+            this.optionalHsbk = hsbk;
+            return this;
         }
 
         public Builder kelvin(int kelvin) {
@@ -61,7 +67,7 @@ public class SetColor extends AbstractMessage implements Message {
         @Override
         public SetColor build() {
             final Header h = buildHeader();
-            final Hsbk color = hsbkBuilder.build();
+            final Hsbk color = (optionalHsbk != null) ? optionalHsbk : hsbkBuilder.build();
 
             final ByteBuffer bb = ByteBuffer.allocate(5 + color.size());
             bb.order(Constants.BYTE_ORDER);

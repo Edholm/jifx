@@ -14,7 +14,7 @@ public class SetColorTest {
 
     @Test
     public void getContent() throws Exception {
-        SetColor sc = new SetColor(hsbk, 1024);
+        SetColor sc = new SetColor.Builder().hsbk(hsbk).build();
 
         byte FF = (byte) 0xff;
         byte[] scExpectedContent = new byte[]{
@@ -26,7 +26,7 @@ public class SetColorTest {
 
     @Test
     public void size() throws Exception {
-        SetColor sc = new SetColor(hsbk, 1024);
+        SetColor sc = new SetColor.Builder().hsbk(hsbk).build();
         assertThat(sc.size(), is(13));
     }
 }
