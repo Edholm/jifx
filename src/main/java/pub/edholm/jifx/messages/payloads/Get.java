@@ -50,6 +50,6 @@ public class Get extends AbstractMessage {
 
     @Override
     public String toString() {
-        return "Get{messageType:" + getHeader().getType() + "}";
+        return "Get{messageType=" + getHeader().getType() + "}";
     }
 }

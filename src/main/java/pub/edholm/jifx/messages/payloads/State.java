@@ -110,34 +110,13 @@ public class State extends AbstractMessage {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        State state = (State) o;
-
-        if (color != null ? !color.equals(state.color) : state.color != null) return false;
-        if (power != null ? !power.equals(state.power) : state.power != null) return false;
-        if (label != null ? !label.equals(state.label) : state.label != null) return false;
-        return Arrays.equals(getPayload(), state.getPayload());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = color != null ? color.hashCode() : 0;
-        result = 31 * result + (power != null ? power.hashCode() : 0);
-        result = 31 * result + (label != null ? label.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(getPayload());
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "State{" +
                 "color=" + color +
                 ", power=" + power +
                 ", label='" + label + '\'' +
                 ", content=" + ByteUtils.toHexString(getPayload()) +
+                ", header=" + getHeader() +
                 '}';
     }
 }

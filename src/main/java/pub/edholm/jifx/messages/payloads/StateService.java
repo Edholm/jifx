@@ -79,28 +79,12 @@ public class StateService extends AbstractMessage {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        StateService that = (StateService) o;
-        return port == that.port && service == that.service;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = service.hashCode();
-        result = 31 * result + port;
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "StateService{" +
                 "service=" + service +
                 ", port=" + port +
                 ", content=" + ByteUtils.toHexString(getContent()) +
+                ", header=" + getHeader() +
                 '}';
     }
 }

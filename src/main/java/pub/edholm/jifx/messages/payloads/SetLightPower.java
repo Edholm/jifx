@@ -63,27 +63,11 @@ public class SetLightPower extends AbstractMessage {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SetLightPower that = (SetLightPower) o;
-
-        return duration == that.duration && level.equals(that.level);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = level.hashCode();
-        result = 31 * result + duration;
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "SetLightPower{" +
                 "level=" + level +
                 ", duration=" + duration +
+                ", header=" + getHeader() +
                 '}';
     }
 }

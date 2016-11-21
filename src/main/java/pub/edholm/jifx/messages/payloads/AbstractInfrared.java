@@ -34,20 +34,4 @@ abstract class AbstractInfrared extends AbstractMessage {
 
         return bb.array();
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AbstractInfrared that = (AbstractInfrared) o;
-
-        return brightness == that.brightness;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) brightness;
-    }
 }

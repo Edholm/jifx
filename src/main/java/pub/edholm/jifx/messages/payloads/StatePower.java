@@ -51,22 +51,7 @@ public class StatePower extends AbstractMessage {
     public String toString() {
         return "StatePower{" +
                 "level=" + level +
+                ", header=" + getHeader() +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        StatePower that = (StatePower) o;
-
-        return level.equals(that.level);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return level.hashCode();
     }
 }
