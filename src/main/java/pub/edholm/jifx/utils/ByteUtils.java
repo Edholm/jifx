@@ -28,21 +28,4 @@ public final class ByteUtils {
     public static <T> String toHexString(T s) {
         return "0x" + String.format(HEX_FORMAT, s);
     }
-
-    public static int totalSize(List<? extends MessagePart> messageParts) {
-        return messageParts
-                .stream()
-                .map(MessagePart::size)
-                .reduce(0, (sum, size) -> sum + size);
-    }
-
-    public static byte[] combineContents(List<? extends MessagePart> messageParts) {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(totalSize(messageParts));
-        byteBuffer.order(Constants.BYTE_ORDER);
-
-        messageParts.forEach(
-                m -> byteBuffer.put(m.getContent())
-        );
-        return byteBuffer.array();
-    }
 }
