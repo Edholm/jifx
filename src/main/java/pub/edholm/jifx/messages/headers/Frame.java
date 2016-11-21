@@ -110,6 +110,10 @@ public final class Frame implements MessagePart {
     }
 
     public static Frame valueOf(byte[] contents) {
+        if (contents.length < Constants.SIZE_FRAME) {
+            throw new IllegalArgumentException(String.format("Content is too small. Got %d, expected: %d", contents.length, Constants.SIZE_FRAME));
+        }
+
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME);
         bb.order(Constants.BYTE_ORDER);
         bb.put(contents);

@@ -26,6 +26,10 @@ public final class ProtocolHeader implements MessagePart {
     }
 
     public static ProtocolHeader valueOf(byte[] content) {
+        if (content.length < Constants.SIZE_PROTOCOL_HEADER) {
+            throw new IllegalArgumentException(String.format("Content is too small. Got %d, expected: %d", content.length, Constants.SIZE_PROTOCOL_HEADER));
+        }
+
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_PROTOCOL_HEADER);
         bb.order(Constants.BYTE_ORDER);
         bb.put(content);

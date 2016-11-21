@@ -97,6 +97,10 @@ public final class FrameAddress implements MessagePart {
     }
 
     public static FrameAddress valueOf(byte[] content) {
+        if (content.length < Constants.SIZE_FRAME_ADDRESS) {
+            throw new IllegalArgumentException(String.format("Content is too small. Got %d, expected: %d", content.length, Constants.SIZE_FRAME_ADDRESS));
+        }
+
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
         bb.order(Constants.BYTE_ORDER);
         bb.put(content);

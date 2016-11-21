@@ -12,11 +12,10 @@ public interface Message extends MessagePart {
     /**
      * Total size of the whole message in bytes
      */
+    @Override
     int size();
 
     byte[] getPayload();
-
-    byte[] getContent();
 
     @Override
     String toString();
