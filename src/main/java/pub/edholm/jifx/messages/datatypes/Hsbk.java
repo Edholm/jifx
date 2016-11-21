@@ -74,10 +74,10 @@ public final class Hsbk implements MessagePart {
     public static Hsbk valueOf(byte[] content) {
         ByteBuffer bb = ByteBuffer.wrap(content);
         bb.order(Constants.BYTE_ORDER);
-        final short hue = (short) (bb.getShort());
-        final short saturation = (short) (bb.getShort());
-        final short brightness = (short) (bb.getShort());
-        final short kelvin = (short) (bb.getShort());
+        final short hue = bb.getShort();
+        final short saturation = bb.getShort();
+        final short brightness = bb.getShort();
+        final short kelvin = bb.getShort();
 
         return new Hsbk.Builder()
                 .hue(hue)
