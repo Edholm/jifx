@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
@@ -57,10 +58,14 @@ public class StateService extends AbstractMessage {
     }
 
     public static StateService valueOf(byte[] content) {
+        if (content.length != Constants.SIZE_HEADER + SIZE) {
+            throw MalformedMessageException.createInvalidSize("StateService", Constants.SIZE_HEADER + SIZE, content.length);
+        }
+
         ByteBuffer buffer = ByteBuffer.wrap(content, Constants.SIZE_HEADER, SIZE);
         buffer.order(Constants.BYTE_ORDER);
 
-        final byte[] payloadContent = Arrays.copyOfRange(content, Constants.SIZE_HEADER, content.length);
+        final byte[] payloadContent = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_HEADER + SIZE);
         final byte service = buffer.get();
         final int port = buffer.getInt();
 

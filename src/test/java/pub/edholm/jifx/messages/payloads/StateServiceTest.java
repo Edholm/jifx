@@ -1,6 +1,7 @@
 package pub.edholm.jifx.messages.payloads;
 
 import org.junit.Test;
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.datatypes.Service;
 
 import static org.hamcrest.core.Is.is;
@@ -10,9 +11,14 @@ import static org.junit.Assert.*;
  * Created by Emil Edholm on 2016-11-05.
  */
 public class StateServiceTest {
+    @Test(expected = MalformedMessageException.class)
+    public void valueOfWithWrongContent() throws Exception {
+        StateService.valueOf(new byte[]{0xa, 0xb, 0xc, 0xd});
+    }
+
     @Test
     public void valueOf() throws Exception {
-        StateService ss = new StateService.Builder(Service.UDP, 1337).build();
+        StateService ss = new StateService.Builder(Service.UDP, 1337).source(0xedaade).build();
         StateService valueOf = StateService.valueOf(ss.getContent());
         assertThat(ss, is(valueOf));
     }

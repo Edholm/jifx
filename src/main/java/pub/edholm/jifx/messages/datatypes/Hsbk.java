@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.datatypes;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
@@ -75,6 +76,10 @@ public final class Hsbk implements MessagePart {
     }
 
     public static Hsbk valueOf(byte[] content) {
+        if (content.length != Constants.SIZE_HSBK) {
+            throw MalformedMessageException.createInvalidSize("Hsbk", Constants.SIZE_HSBK, content.length);
+        }
+
         ByteBuffer bb = ByteBuffer.wrap(content);
         bb.order(Constants.BYTE_ORDER);
         final short hue = bb.getShort();
