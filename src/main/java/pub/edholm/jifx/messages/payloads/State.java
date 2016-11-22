@@ -69,7 +69,7 @@ public class State extends AbstractMessage {
 
     public static State valueOf(byte[] content) {
         final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_STATE;
-        if (content.length != SIZE) {
+        if (content.length < SIZE) {
             throw MalformedMessageException.createInvalidSize("State", SIZE, content.length);
         }
 

@@ -58,7 +58,7 @@ public class StateService extends AbstractMessage {
     }
 
     public static StateService valueOf(byte[] content) {
-        if (content.length != Constants.SIZE_HEADER + SIZE) {
+        if (content.length < Constants.SIZE_HEADER + SIZE) {
             throw MalformedMessageException.createInvalidSize("StateService", Constants.SIZE_HEADER + SIZE, content.length);
         }
 

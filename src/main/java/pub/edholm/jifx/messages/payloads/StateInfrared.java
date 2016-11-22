@@ -38,7 +38,7 @@ public class StateInfrared extends AbstractInfrared {
 
     public static StateInfrared valueOf(byte[] content) {
         final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_INFRARED;
-        if (content.length != SIZE) {
+        if (content.length < SIZE) {
             throw MalformedMessageException.createInvalidSize("StateInfrared", SIZE, content.length);
         }
 

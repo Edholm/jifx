@@ -99,7 +99,7 @@ public class SetColor extends AbstractMessage implements Message {
 
     public static SetColor valueOf(byte[] contents) {
         final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_SET_COLOR;
-        if (contents.length != SIZE) {
+        if (contents.length < SIZE) {
             throw MalformedMessageException.createInvalidSize("SetColor", SIZE, contents.length);
         }
 

@@ -62,7 +62,7 @@ public class SetLightPower extends AbstractMessage {
 
     public static SetLightPower valueOf(byte[] content) {
         final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_SET_LIGHT_POWER;
-        if (content.length != SIZE) {
+        if (content.length < SIZE) {
             throw MalformedMessageException.createInvalidSize("SetLightPower", SIZE, content.length);
         }
 
