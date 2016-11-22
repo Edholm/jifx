@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.headers.Header;
@@ -12,7 +13,7 @@ import java.util.Arrays;
  */
 public class StateInfrared extends AbstractInfrared {
 
-    public StateInfrared(Header header, short brightness) {
+    private StateInfrared(Header header, short brightness) {
         super(header, brightness);
     }
 
@@ -36,8 +37,13 @@ public class StateInfrared extends AbstractInfrared {
     }
 
     public static StateInfrared valueOf(byte[] content) {
+        final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_INFRARED;
+        if (content.length != SIZE) {
+            throw MalformedMessageException.createInvalidSize("StateInfrared", SIZE, content.length);
+        }
+
         final Header h = Header.valueOf(content);
-        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_INFRARED);
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, SIZE);
         final short brightness = AbstractInfrared.parse(payload);
 
         return new StateInfrared(h, brightness);
