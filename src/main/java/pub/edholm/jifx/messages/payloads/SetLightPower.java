@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
@@ -51,8 +52,21 @@ public class SetLightPower extends AbstractMessage {
         }
     }
 
+    public PowerLevel getLevel() {
+        return level;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
     public static SetLightPower valueOf(byte[] content) {
-        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_SET_LIGHT_POWER);
+        final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_SET_LIGHT_POWER;
+        if (content.length != SIZE) {
+            throw MalformedMessageException.createInvalidSize("SetLightPower", SIZE, content.length);
+        }
+
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, SIZE);
         final Header h = Header.valueOf(content);
 
         ByteBuffer bb = ByteBuffer.wrap(payload);
