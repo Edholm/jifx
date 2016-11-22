@@ -14,6 +14,14 @@ public class SetColorTest {
     private final Hsbk hsbk = new Hsbk.Builder().hue(0x5555).kelvin(3500).build();
 
     @Test
+    public void valueOf() throws Exception {
+        final SetColor sc = new SetColor.Builder().brightness(0xeda).kelvin(2500).duration(256).tagged(false).source(0xedaeda).build();
+        final SetColor parsed = SetColor.valueOf(sc.getContent());
+
+        assertThat(parsed, is(sc));
+    }
+
+    @Test
     public void getContent() throws Exception {
         SetColor sc = new SetColor.Builder().hsbk(hsbk).build();
 

@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.Message;
@@ -9,6 +10,7 @@ import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * Sent by a client to change the light color.
@@ -44,6 +46,9 @@ public class SetColor extends AbstractMessage implements Message {
             return this;
         }
 
+        /**
+         * @see Hsbk.Builder#kelvin(int)
+         */
         public Builder kelvin(int kelvin) {
             this.hsbkBuilder.kelvin(kelvin);
             return thisObject();
@@ -90,6 +95,28 @@ public class SetColor extends AbstractMessage implements Message {
 
     public int getDuration() {
         return duration;
+    }
+
+    public static SetColor valueOf(byte[] contents) {
+        final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_SET_COLOR;
+        if (contents.length != SIZE) {
+            throw MalformedMessageException.createInvalidSize("SetColor", SIZE, contents.length);
+        }
+
+        final Header h = Header.valueOf(contents);
+        final byte[] payload = Arrays.copyOfRange(contents, Constants.SIZE_HEADER, SIZE);
+
+        final ByteBuffer buffer = ByteBuffer.wrap(payload);
+        buffer.order(Constants.BYTE_ORDER);
+
+        buffer.get(); // Discard reserved field
+        final byte[] colorContents = new byte[Constants.SIZE_HSBK];
+        buffer.get(colorContents, 0, colorContents.length);
+
+        final Hsbk color = Hsbk.valueOf(colorContents);
+        final int duration = buffer.getInt();
+
+        return new SetColor(h, payload, color, duration);
     }
 
     @Override
