@@ -1,6 +1,8 @@
 package pub.edholm.jifx.exceptions;
 
 /**
+ * Thrown when a malformed message is detected.
+ * <br />
  * Created by Emil Edholm on 2016-11-22.
  */
 public class MalformedMessageException extends RuntimeException {
