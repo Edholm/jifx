@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
@@ -9,7 +10,6 @@ import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -68,6 +68,11 @@ public class State extends AbstractMessage {
     }
 
     public static State valueOf(byte[] content) {
+        final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_STATE;
+        if (content.length != SIZE) {
+            throw MalformedMessageException.createInvalidSize("State", SIZE, content.length);
+        }
+
         ByteBuffer bb = ByteBuffer.wrap(content, Constants.SIZE_HEADER, Constants.SIZE_STATE);
         bb.order(Constants.BYTE_ORDER);
 
