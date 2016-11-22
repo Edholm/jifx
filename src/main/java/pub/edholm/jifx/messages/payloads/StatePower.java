@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
@@ -40,7 +41,12 @@ public class StatePower extends AbstractMessage {
     }
 
     public static StatePower valueOf(byte[] content) {
-        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_POWER_LEVEL);
+        final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_POWER_LEVEL;
+        if (content.length != SIZE) {
+            throw MalformedMessageException.createInvalidSize("StatePower", SIZE, content.length);
+        }
+
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, SIZE);
         final Header h = Header.valueOf(content);
 
         final PowerLevel level = PowerLevel.valueOf(payload);
