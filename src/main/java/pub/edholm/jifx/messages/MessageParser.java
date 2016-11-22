@@ -31,11 +31,15 @@ public class MessageParser {
             throw new MalformedMessageException("Contents too small to contain Lifx header");
         }
 
-        int protocolHeaderPosition = Constants.SIZE_FRAME + Constants.SIZE_FRAME_ADDRESS;
-        byte[] protocolHeaderContents = Arrays.copyOfRange(contents, protocolHeaderPosition, protocolHeaderPosition + Constants.SIZE_PROTOCOL_HEADER);
-        ProtocolHeader protocolHeader = ProtocolHeader.valueOf(protocolHeaderContents);
+        final int protocolHeaderPosition = Constants.SIZE_FRAME + Constants.SIZE_FRAME_ADDRESS;
+        final byte[] protocolHeaderContents = Arrays.copyOfRange(contents, protocolHeaderPosition, protocolHeaderPosition + Constants.SIZE_PROTOCOL_HEADER);
+        final ProtocolHeader protocolHeader = ProtocolHeader.valueOf(protocolHeaderContents);
 
-        Class<? extends Message> klass = protocolHeader.getType().getImplementationClass();
+        final Class<? extends Message> klass = protocolHeader.getType().getImplementationClass();
+        if (klass == null) {
+            throw new MessageParseException("Cannot parse contents due to unknown implementation class. Message type: " + protocolHeader.getType());
+        }
+
         Method valueOfMethod;
         try {
             valueOfMethod = klass.getMethod(VALUEOF_METHOD_NAME, VALUEOF_PARAMETER_CLASS);
