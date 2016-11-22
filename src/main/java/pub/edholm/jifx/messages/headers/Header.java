@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.headers;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
@@ -74,7 +75,7 @@ public class Header implements MessagePart {
 
     public static Header valueOf(byte[] content) {
         if (content.length < Constants.SIZE_HEADER) {
-            throw new IllegalArgumentException(String.format("Content is missing info. Got: %d bytes, expected: %d", content.length, Constants.SIZE_HEADER));
+            throw new MalformedMessageException(String.format("Missing info. Got: %d bytes, expected: %d", content.length, Constants.SIZE_HEADER));
         }
 
         final ByteBuffer buffer = ByteBuffer.wrap(content);

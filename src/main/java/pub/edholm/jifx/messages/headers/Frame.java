@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.headers;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
@@ -111,7 +112,7 @@ public final class Frame implements MessagePart {
 
     public static Frame valueOf(byte[] contents) {
         if (contents.length < Constants.SIZE_FRAME) {
-            throw new IllegalArgumentException(String.format("Content is too small. Got %d, expected: %d", contents.length, Constants.SIZE_FRAME));
+            throw new MalformedMessageException(String.format("Content is too small. Got %d, expected: %d", contents.length, Constants.SIZE_FRAME));
         }
 
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME);

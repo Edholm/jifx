@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
@@ -41,7 +42,7 @@ public class Get extends AbstractMessage {
 
     public static Get valueOf(byte[] content) {
         if (content.length != Constants.SIZE_HEADER) {
-            throw new IllegalArgumentException(String.format("Invalid size. Got %d, Expected: %d", content.length, Constants.SIZE_HEADER));
+            throw new MalformedMessageException(String.format("Invalid size. Got %d, Expected: %d", content.length, Constants.SIZE_HEADER));
         }
 
         Header h = Header.valueOf(content);
