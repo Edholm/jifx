@@ -35,6 +35,9 @@ public final class Hsbk implements MessagePart {
             return this;
         }
 
+        /**
+         * Expects a value between 2500 and 9000
+         */
         public Builder kelvin(int kelvin) {
             if (kelvin < 2500 || kelvin > 9000) {
                 throw new IllegalArgumentException("Illegal kelvin value. Got: " + kelvin);

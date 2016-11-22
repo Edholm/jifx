@@ -42,7 +42,7 @@ public class Get extends AbstractMessage {
 
     public static Get valueOf(byte[] content) {
         if (content.length == Constants.SIZE_HEADER) {
-            throw new MalformedMessageException(String.format("Invalid size. Got %d, Expected: %d", content.length, Constants.SIZE_HEADER));
+            throw MalformedMessageException.createInvalidSize("Get", Constants.SIZE_HEADER, content.length);
         }
 
         Header h = Header.valueOf(content);

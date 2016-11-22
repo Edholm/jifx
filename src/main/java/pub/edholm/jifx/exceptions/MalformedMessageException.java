@@ -24,4 +24,8 @@ public class MalformedMessageException extends RuntimeException {
     public MalformedMessageException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+    public static MalformedMessageException createInvalidSize(String className, int expected, int actual) {
+        return new MalformedMessageException(String.format("Size does not match \"%s\". Expected %d bytes, got %d", className, expected, actual));
+    }
 }

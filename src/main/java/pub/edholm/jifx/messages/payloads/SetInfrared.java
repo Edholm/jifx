@@ -1,5 +1,6 @@
 package pub.edholm.jifx.messages.payloads;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.headers.Header;
@@ -36,6 +37,10 @@ public class SetInfrared extends AbstractInfrared {
     }
 
     public static SetInfrared valueOf(byte[] content) {
+        if (content.length != Constants.SIZE_INFRARED) {
+            throw MalformedMessageException.createInvalidSize("SetInfrared", Constants.SIZE_INFRARED, content.length);
+        }
+
         final Header h = Header.valueOf(content);
         final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_INFRARED);
         final short brightness = AbstractInfrared.parse(payload);
