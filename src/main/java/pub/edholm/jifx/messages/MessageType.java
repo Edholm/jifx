@@ -17,7 +17,7 @@ public enum MessageType {
     StateWifiFirmware(19, null),
     GetDevicePower(20, pub.edholm.jifx.messages.payloads.Get.class),
     SetDevicePower(21, null),
-    StateDevicePower(22, null),
+    StateDevicePower(22, pub.edholm.jifx.messages.payloads.StatePower.class),
     GetLabel(23, pub.edholm.jifx.messages.payloads.Get.class),
     SetLabel(24, null),
     StateLabel(25, null),
