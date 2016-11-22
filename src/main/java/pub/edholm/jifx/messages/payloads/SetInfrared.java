@@ -37,12 +37,13 @@ public class SetInfrared extends AbstractInfrared {
     }
 
     public static SetInfrared valueOf(byte[] content) {
-        if (content.length != Constants.SIZE_INFRARED) {
-            throw MalformedMessageException.createInvalidSize("SetInfrared", Constants.SIZE_INFRARED, content.length);
+        final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_INFRARED;
+        if (content.length != SIZE) {
+            throw MalformedMessageException.createInvalidSize("SetInfrared", SIZE, content.length);
         }
 
         final Header h = Header.valueOf(content);
-        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, Constants.SIZE_INFRARED);
+        final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, SIZE);
         final short brightness = AbstractInfrared.parse(payload);
 
         return new SetInfrared(h, brightness);
