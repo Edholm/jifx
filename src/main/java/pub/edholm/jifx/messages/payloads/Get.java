@@ -25,8 +25,14 @@ public class Get extends AbstractMessage {
             if (!getType.toString().toLowerCase().startsWith("get")) {
                 throw new IllegalArgumentException("Expected \"Get*\" message type. Got: " + getType);
             }
-            this.resRequired(true);
-            this.tagged(false);
+            if(getType == MessageType.GetService) {
+                this.resRequired(false);
+                this.tagged(true);
+                this.target(0);
+            } else {
+                this.resRequired(true);
+                this.tagged(false);
+            }
         }
 
         @Override
