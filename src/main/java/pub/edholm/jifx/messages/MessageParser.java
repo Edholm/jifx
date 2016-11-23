@@ -3,6 +3,7 @@ package pub.edholm.jifx.messages;
 import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.exceptions.MessageParseException;
 import pub.edholm.jifx.messages.headers.ProtocolHeader;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,6 +38,7 @@ public class MessageParser {
 
         final Class<? extends Message> klass = protocolHeader.getType().getImplementationClass();
         if (klass == null) {
+            System.err.println("Unknown contents: " + ByteUtils.toHexString(contents));
             throw new MessageParseException("Cannot parse contents due to unknown implementation class. Message type: " + protocolHeader.getType());
         }
 
