@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages;
 
-import pub.edholm.jifx.messages.headers.FrameAddress;
 import org.junit.Test;
+import pub.edholm.jifx.messages.headers.FrameAddress;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -38,7 +38,7 @@ public class FrameAddressTest {
     @Test
     public void getContent() throws Exception {
         FrameAddress fa1 = new FrameAddress.Builder().build();
-        FrameAddress fa2 = new FrameAddress.Builder().ackRequired(true).resRequired(true).target(0xFFFFFFFFFFFFFFFFL).sequence(0xff).build();
+        FrameAddress fa2 = new FrameAddress.Builder().target(4930653221840L).ackRequired(false).resRequired(true).sequence(97).build();
 
         System.out.println("FA1: " + fa1);
         System.out.println("FA2: " + fa2);
@@ -46,9 +46,8 @@ public class FrameAddressTest {
                 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
         };
 
-        byte ff = (byte) 0xff;
         byte[] fa2Expected = new byte[]{
-                ff, ff, ff, ff, ff, ff, ff, ff, ff, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+                (byte) 0xd0, 0x73, (byte) 0xd5, 0x01, 0x7c, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x61,
         };
 
         assertThat(fa1.getContent(), is(fa1Expected));
