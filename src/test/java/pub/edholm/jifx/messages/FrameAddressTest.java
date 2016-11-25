@@ -19,7 +19,7 @@ public class FrameAddressTest {
                 .resRequired(true).build();
 
         FrameAddress valueOf = FrameAddress.valueOf(frameAddress.getContent());
-        assertThat(frameAddress, is(valueOf));
+        assertThat(valueOf, is(frameAddress));
     }
 
     @Test

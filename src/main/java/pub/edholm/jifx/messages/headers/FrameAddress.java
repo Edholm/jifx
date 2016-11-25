@@ -2,7 +2,6 @@ package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
-import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -19,19 +18,19 @@ import java.util.Arrays;
  * Created by Emil Edholm on 2016-11-04.
  */
 public final class FrameAddress implements MessagePart {
-    private static final int ACK_REQUIRED_POSITION = 9;
-    private static final int RES_REQUIRED_POSITION = 8;
+    private static final int ACK_REQUIRED_POSITION = 1;
+    private static final int RES_REQUIRED_POSITION = 0;
     private final long target;
-    private final int ackRequired;
-    private final int resRequired;
+    private final byte ackRequired;
+    private final byte resRequired;
     private final byte sequence;
 
     private final byte[] content;
 
     public static final class Builder {
         private long target = 0x0;
-        private int ackRequired = 0x0;
-        private int resRequired = 0x0;
+        private byte ackRequired = 0x0;
+        private byte resRequired = 0x0;
         private byte sequence = 0x0;
 
         /**
@@ -50,7 +49,7 @@ public final class FrameAddress implements MessagePart {
          * Tell the device to that it must respond with Acknowledgement
          */
         public Builder ackRequired(boolean ackRequired) {
-            this.ackRequired = (ackRequired) ? 1 << ACK_REQUIRED_POSITION : 0;
+            this.ackRequired = (byte) ((ackRequired) ? 1 << ACK_REQUIRED_POSITION : 0);
             return this;
         }
 
@@ -58,7 +57,7 @@ public final class FrameAddress implements MessagePart {
          * Tell the device to that it must respond with a State message when appropriate
          */
         public Builder resRequired(boolean resRequired) {
-            this.resRequired = (resRequired) ? 1 << RES_REQUIRED_POSITION : 0;
+            this.resRequired = (byte) ((resRequired) ? 1 : 0);
             return this;
         }
 
@@ -71,10 +70,7 @@ public final class FrameAddress implements MessagePart {
          * @see FrameAddress.Builder#resRequired(boolean)
          */
         public Builder sequence(int sequence) {
-            if (sequence < 0 || sequence > 0xFF) {
-                throw new IllegalArgumentException("Sequence larger than is possible. Got: " + ByteUtils.toHexString(sequence));
-            }
-            this.sequence = (byte) sequence;
+            this.sequence = (byte) (sequence & 0xff);
             return this;
         }
 
@@ -92,30 +88,33 @@ public final class FrameAddress implements MessagePart {
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
         bb.order(Constants.BYTE_ORDER);
         bb.putLong(target);
-        // & with 0xff to get unsigned value
-        bb.putLong(ackRequired | resRequired | (sequence & 0xff));
+        bb.put(new byte[]{0, 0, 0, 0, 0, 0});
+        bb.put((byte) (ackRequired | resRequired));
+        bb.put((byte) (sequence & 0xff)); // & with 0xff to get unsigned value
         this.content = bb.array();
     }
 
     public static FrameAddress valueOf(byte[] content) {
         if (content.length < Constants.SIZE_FRAME_ADDRESS) {
-            throw new MalformedMessageException(String.format("Content is too small. Got %d, expected: %d", content.length, Constants.SIZE_FRAME_ADDRESS));
+            throw new MalformedMessageException(String.format("Content is too small. Got %d, expected at least: %d", content.length, Constants.SIZE_FRAME_ADDRESS));
         }
 
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
+        ByteBuffer bb = ByteBuffer.wrap(content);
         bb.order(Constants.BYTE_ORDER);
-        bb.put(content);
-        final long target = bb.getLong(0);
-        final long ars = bb.getLong(8);
-        final int ackReq = (int) ((ars & 0x200) >> ACK_REQUIRED_POSITION);
-        final int resReq = (int) ((ars & 0x100) >> RES_REQUIRED_POSITION);
-        final int seq = (int) (ars & 0xff);
+
+        final long target = bb.getLong();
+        bb.position(bb.position() + 6); // Skip reserved fields
+        final byte ackRes = bb.get();
+        final byte seq = bb.get();
+
+        final boolean res = (ackRes & 1) > 0;
+        final boolean ack = ((ackRes & 2) >> 1) > 0;
 
         return new FrameAddress.Builder()
                 .target(target)
                 .sequence(seq)
-                .ackRequired(ackReq == 1)
-                .resRequired(resReq == 1).build();
+                .ackRequired(ack)
+                .resRequired(res).build();
     }
 
     public long getTarget() {
@@ -151,7 +150,6 @@ public final class FrameAddress implements MessagePart {
                 ", ackRequired=" + ((ackRequired > 0) ? "true" : "false") +
                 ", resRequired=" + ((resRequired > 0) ? "true" : "false") +
                 ", sequence=" + String.format("0x%x", sequence) +
-                ", content=" + ByteUtils.toHexString(content) +
                 '}';
     }
 
