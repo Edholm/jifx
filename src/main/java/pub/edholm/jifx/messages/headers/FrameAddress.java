@@ -145,12 +145,12 @@ public final class FrameAddress implements MessagePart {
 
     @Override
     public String toString() {
-        return "FrameAddress{" +
-                "target=" + String.format("0x%x", target) +
-                ", ackRequired=" + ((ackRequired > 0) ? "true" : "false") +
-                ", resRequired=" + ((resRequired > 0) ? "true" : "false") +
-                ", sequence=" + String.format("0x%x", sequence) +
-                '}';
+        return "FrameAddress {\n" +
+                "\ttarget: " + String.format("0x%x", target) +
+                "\n\t,ackRequired: " + ((ackRequired > 0) ? "true" : "false") +
+                "\n\t,resRequired: " + ((resRequired > 0) ? "true" : "false") +
+                "\n\t,sequence: " + (sequence & 0xff) + String.format(" (0x%x)", sequence) +
+                "\n}";
     }
 
     @Override

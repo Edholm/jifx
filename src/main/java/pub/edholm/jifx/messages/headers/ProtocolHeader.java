@@ -3,7 +3,6 @@ package pub.edholm.jifx.messages.headers;
 import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
-import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -54,10 +53,9 @@ public final class ProtocolHeader implements MessagePart {
 
     @Override
     public String toString() {
-        return "ProtocolHeader{" +
-                "type=" + type +
-                ", content=" + ByteUtils.toHexString(content) +
-                '}';
+        return "ProtocolHeader {\n" +
+                "\ttype: " + type +
+                "\n}";
     }
 
     @Override

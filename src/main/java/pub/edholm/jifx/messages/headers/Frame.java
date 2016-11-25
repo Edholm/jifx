@@ -168,15 +168,14 @@ public final class Frame implements MessagePart {
 
     @Override
     public String toString() {
-        return "Frame{" +
-                "origin=" + ByteUtils.toHexString(origin) +
-                ", addressable=" + ((addressable > 0) ? "true" : "false") +
-                ", protocol=" + protocol +
-                ", size=" + ByteUtils.toHexString(size) +
-                ", tagged=" + ((tagged > 0) ? "true" : "false") +
-                ", source=" + ByteUtils.toHexString(source) +
-                ", content=" + ByteUtils.toHexString(content) +
-                '}';
+        return "Frame {\n" +
+                "\tsize: " + ByteUtils.toHexString(size) +
+                "\n\t,origin: " + origin +
+                "\n\t,tagged: " + ((tagged > 0) ? "true" : "false") +
+                "\n\t,addressable: " + ((addressable > 0) ? "true" : "false") +
+                "\n\t,protocol: " + protocol +
+                "\n\t,source: " + ByteUtils.toHexString(source) +
+                "\n}";
     }
 
     @Override
