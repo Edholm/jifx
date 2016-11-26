@@ -100,7 +100,7 @@ public final class FrameAddress implements MessagePart {
             throw new MalformedMessageException(String.format("Content is too small. Got %d, expected at least: %d", content.length, Constants.SIZE_FRAME_ADDRESS));
         }
 
-        ByteBuffer bb = ByteBuffer.wrap(content);
+        ByteBuffer bb = ByteBuffer.wrap(Arrays.copyOf(content, content.length));
         bb.order(Constants.BYTE_ORDER);
 
         final byte[] target = new byte[8];

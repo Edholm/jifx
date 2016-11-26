@@ -115,7 +115,7 @@ public final class Frame implements MessagePart {
         }
 
         ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_FRAME);
-        bb.put(contents);
+        bb.put(Arrays.copyOf(contents, contents.length));
 
         final short size = bb.getShort(0);
         final short tagged = (short) ((bb.getShort(2) & 0x2000) >> TAGGED_POSITION);

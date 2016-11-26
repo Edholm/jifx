@@ -28,7 +28,7 @@ public final class ProtocolHeader implements MessagePart {
             throw new MalformedMessageException(String.format("Content is too small. Got %d, expected: %d", content.length, Constants.SIZE_PROTOCOL_HEADER));
         }
 
-        ByteBuffer bb = ByteBuffer.wrap(content);
+        ByteBuffer bb = ByteBuffer.wrap(Arrays.copyOf(content, content.length));
         bb.order(Constants.BYTE_ORDER);
 
         final short type = bb.get(8);
