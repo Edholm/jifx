@@ -23,14 +23,14 @@ public class Time implements MessagePart {
      */
     public Time(long time) {
         this.time = time;
-        ByteBuffer bb = ByteUtils.allocateByteBuffer(8);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_TIME);
         bb.putLong(this.time);
         content = bb.array();
     }
 
     public static Time valueOf(byte[] content) {
-        if (content.length < 8) {
-            throw MalformedMessageException.createInvalidSize("Time", 8, content.length);
+        if (content.length < Constants.SIZE_TIME) {
+            throw MalformedMessageException.createInvalidSize("Time", Constants.SIZE_TIME, content.length);
         }
         ByteBuffer buffer = ByteBuffer.wrap(content);
         buffer.order(Constants.BYTE_ORDER);
