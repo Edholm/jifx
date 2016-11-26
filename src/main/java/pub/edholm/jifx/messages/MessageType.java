@@ -8,7 +8,7 @@ public enum MessageType {
     GetService(2, pub.edholm.jifx.messages.payloads.Get.class),
     StateService(3, pub.edholm.jifx.messages.payloads.StateService.class),
     GetHostInfo(12, pub.edholm.jifx.messages.payloads.Get.class),
-    StateHostInfo(13, null),
+    StateHostInfo(13, pub.edholm.jifx.messages.payloads.StateHostInfo.class),
     GetHostFirmware(14, pub.edholm.jifx.messages.payloads.Get.class),
     StateHostFirmware(15, null),
     GetWifiInfo(16, pub.edholm.jifx.messages.payloads.Get.class),
