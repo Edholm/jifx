@@ -6,12 +6,14 @@ import java.nio.ByteOrder;
  * Created by Emil Edholm on 2016-11-04.
  */
 public class Constants {
+
     private Constants() {
         throw new AssertionError("You mustn't create an instance of this class");
     }
 
     public static final int PORT = 56700;
 
+    public static final int SIZE_ECHO = 64;
     public static final int SIZE_STATE_SIGNAL_INFO = 14;
     public static final int SIZE_STATE_HOST_FIRMWARE = 20;
     public static final int SIZE_INFRARED = 2;

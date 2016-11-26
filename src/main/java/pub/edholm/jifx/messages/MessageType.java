@@ -30,8 +30,8 @@ public enum MessageType {
     StateLocation(50, null),
     GetGroup(51, pub.edholm.jifx.messages.payloads.Get.class),
     StateGroup(53, null),
-    EchoRequest(58, null),
-    EchoResponse(59, null),
+    EchoRequest(58, pub.edholm.jifx.messages.payloads.EchoRequest.class),
+    EchoResponse(59, pub.edholm.jifx.messages.payloads.EchoResponse.class),
 
     /* Light pub.edholm.jifx.messages */
     Get(101, pub.edholm.jifx.messages.payloads.Get.class),
