@@ -96,12 +96,8 @@ public final class Hsbk implements MessagePart {
 
     @Override
     public byte[] getContent() {
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_HSBK);
-        bb.order(Constants.BYTE_ORDER);
-        bb.putShort(hue);
-        bb.putShort(saturation);
-        bb.putShort(brightness);
-        bb.putShort(kelvin);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_HSBK);
+        bb.putShort(hue).putShort(saturation).putShort(brightness).putShort(kelvin);
         return bb.array();
     }
 

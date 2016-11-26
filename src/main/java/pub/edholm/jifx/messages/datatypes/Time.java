@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.MessagePart;
-import pub.edholm.jifx.utils.Constants;
+import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
 import java.time.Instant;
@@ -21,8 +21,7 @@ public class Time implements MessagePart {
      */
     public Time(long time) {
         this.time = time;
-        ByteBuffer bb = ByteBuffer.allocate(8);
-        bb.order(Constants.BYTE_ORDER);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(8);
         bb.putLong(this.time);
         content = bb.array();
     }

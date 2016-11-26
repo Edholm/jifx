@@ -6,6 +6,7 @@ import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Service;
 import pub.edholm.jifx.messages.headers.Header;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -42,11 +43,8 @@ public class StateService extends AbstractMessage {
 
         @Override
         public StateService build() {
-            ByteBuffer bb = ByteBuffer.allocate(SIZE);
-            bb.order(Constants.BYTE_ORDER);
-            bb.put(service.getValue());
-            bb.putInt(port);
-
+            ByteBuffer bb = ByteUtils.allocateByteBuffer(SIZE);
+            bb.put(service.getValue()).putInt(port);
             return new StateService(buildHeader(), bb.array(), service, port);
         }
 

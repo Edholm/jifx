@@ -3,6 +3,7 @@ package pub.edholm.jifx.messages.headers;
 import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -17,11 +18,8 @@ public final class ProtocolHeader implements MessagePart {
 
     public ProtocolHeader(MessageType t) {
         this.type = t;
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_PROTOCOL_HEADER);
-        bb.order(Constants.BYTE_ORDER);
-        bb.putLong(0);
-        bb.putShort(this.type.type());
-        bb.putShort((short) 0);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_PROTOCOL_HEADER);
+        bb.putLong(0).putShort(this.type.type()).putShort((short) 0);
         this.content = bb.array();
     }
 

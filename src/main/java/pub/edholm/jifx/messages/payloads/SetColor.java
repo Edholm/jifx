@@ -7,6 +7,7 @@ import pub.edholm.jifx.messages.Message;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.messages.headers.Header;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -74,11 +75,9 @@ public class SetColor extends AbstractMessage implements Message {
             final Header h = buildHeader();
             final Hsbk color = (optionalHsbk != null) ? optionalHsbk : hsbkBuilder.build();
 
-            final ByteBuffer bb = ByteBuffer.allocate(5 + color.size());
-            bb.order(Constants.BYTE_ORDER);
+            final ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_SET_COLOR);
             bb.put((byte) 0); // reserved field
-            bb.put(color.getContent());
-            bb.putInt(duration);
+            bb.put(color.getContent()).putInt(duration);
 
             return new SetColor(h, bb.array(), color, duration);
         }

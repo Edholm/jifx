@@ -87,8 +87,7 @@ public final class FrameAddress implements MessagePart {
         this.resRequired = b.resRequired;
         this.sequence = b.sequence;
 
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
-        bb.order(Constants.BYTE_ORDER);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_FRAME_ADDRESS);
         bb.put(target);
         bb.put(new byte[]{0, 0, 0, 0, 0, 0});
         bb.put((byte) (ackRequired | resRequired));

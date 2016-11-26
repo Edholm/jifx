@@ -4,6 +4,7 @@ import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -24,8 +25,7 @@ public class Header implements MessagePart {
         this.frameAddress = fa;
         this.protocolHeader = ph;
 
-        ByteBuffer bb = ByteBuffer.allocate(frame.size() + frameAddress.size() + protocolHeader.size());
-        bb.order(Constants.BYTE_ORDER);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_HEADER);
         bb.put(frame.getContent());
         bb.put(frameAddress.getContent());
         bb.put(protocolHeader.getContent());

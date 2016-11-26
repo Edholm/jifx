@@ -2,6 +2,7 @@ package pub.edholm.jifx.messages.payloads;
 
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.headers.Header;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -28,10 +29,8 @@ abstract class AbstractInfrared extends AbstractMessage {
     }
 
     private static byte[] toByteArray(short brightness) {
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_INFRARED);
-        bb.order(Constants.BYTE_ORDER);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_INFRARED);
         bb.putShort(brightness);
-
         return bb.array();
     }
 }

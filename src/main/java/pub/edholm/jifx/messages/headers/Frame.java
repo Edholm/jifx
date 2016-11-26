@@ -104,8 +104,7 @@ public final class Frame implements MessagePart {
 
 
         short otap = (short) (origin | tagged | addressable | protocol);
-        ByteBuffer buffer = ByteBuffer.allocate(Constants.SIZE_FRAME);
-        buffer.order(Constants.BYTE_ORDER);
+        ByteBuffer buffer = ByteUtils.allocateByteBuffer(Constants.SIZE_FRAME);
         buffer.putShort(size).putShort(otap).putInt(source);
         content = buffer.array();
     }
@@ -115,8 +114,7 @@ public final class Frame implements MessagePart {
             throw new MalformedMessageException(String.format("Content is too small. Got %d, expected: %d", contents.length, Constants.SIZE_FRAME));
         }
 
-        ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME);
-        bb.order(Constants.BYTE_ORDER);
+        ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_FRAME);
         bb.put(contents);
 
         final short size = bb.getShort(0);

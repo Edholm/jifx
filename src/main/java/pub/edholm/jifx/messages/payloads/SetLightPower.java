@@ -6,6 +6,7 @@ import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.messages.headers.Header;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -36,14 +37,9 @@ public class SetLightPower extends AbstractMessage {
 
         @Override
         public SetLightPower build() {
-            ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_SET_LIGHT_POWER);
-            bb.order(Constants.BYTE_ORDER);
-
-            bb.put(powerLevel.getContent());
-            bb.putInt(duration);
-            byte[] content = bb.array();
-
-            return new SetLightPower(buildHeader(), content, powerLevel, duration);
+            ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_SET_LIGHT_POWER);
+            bb.put(powerLevel.getContent()).putInt(duration);
+            return new SetLightPower(buildHeader(), bb.array(), powerLevel, duration);
         }
 
         @Override

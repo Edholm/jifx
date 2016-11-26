@@ -1,7 +1,7 @@
 package pub.edholm.jifx.messages;
 
 import pub.edholm.jifx.messages.headers.Header;
-import pub.edholm.jifx.utils.Constants;
+import pub.edholm.jifx.utils.ByteUtils;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -36,10 +36,8 @@ public abstract class AbstractMessage implements Message {
 
     @Override
     public byte[] getContent() {
-        ByteBuffer buffer = ByteBuffer.allocate(header.getTotalSize());
-        buffer.order(Constants.BYTE_ORDER);
-        buffer.put(header.getContent());
-        buffer.put(payloadContent);
+        ByteBuffer buffer = ByteUtils.allocateByteBuffer(header.getTotalSize());
+        buffer.put(header.getContent()).put(payloadContent);
         return buffer.array();
     }
 

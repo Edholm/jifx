@@ -7,6 +7,7 @@ import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.messages.headers.Header;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -44,18 +45,13 @@ public class State extends AbstractMessage {
 
         @Override
         public State build() {
-            ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_STATE);
-            bb.order(Constants.BYTE_ORDER);
-            bb.put(color.getContent());
-            bb.putShort((short) 0);
-            bb.put(power.getContent());
+            ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_STATE);
+            bb.put(color.getContent()).putShort((short) 0).put(power.getContent());
 
-            ByteBuffer labelBuffer = ByteBuffer.allocate(32);
-            labelBuffer.order(Constants.BYTE_ORDER);
+            ByteBuffer labelBuffer = ByteUtils.allocateByteBuffer(32);
             labelBuffer.put(label.getBytes(StandardCharsets.UTF_8));
 
-            bb.put(labelBuffer.array());
-            bb.putLong(0);
+            bb.put(labelBuffer.array()).putLong(0L);
 
             return new State(buildHeader(), bb.array(), color, power, label);
         }
