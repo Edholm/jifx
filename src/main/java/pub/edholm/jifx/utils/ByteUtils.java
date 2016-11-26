@@ -44,7 +44,7 @@ public final class ByteUtils {
     }
 
     public static byte[] longToBytes(long l) {
-        ByteBuffer buffer = ByteBuffer.allocate(8);
+        ByteBuffer buffer = allocateByteBuffer(8);
         buffer.putLong(l);
         return buffer.array();
     }
