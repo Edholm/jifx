@@ -17,7 +17,7 @@ import java.util.Arrays;
  * @see pub.edholm.jifx.messages.payloads.StateLocation
  */
 public class ExtendedLabel implements MessagePart {
-    private static final int SIZE_ID = 16;
+    public static final int SIZE_ID = 16;
     private final byte[] id;
     private final Label label;
     private final Time updatedAt;
