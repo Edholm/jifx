@@ -14,23 +14,23 @@ import java.util.Arrays;
 /**
  * Created by Emil Edholm on 2016-11-26.
  */
-public class StateHostInfo extends AbstractMessage {
+public class StateWifiInfo extends AbstractMessage {
     private final float signal;
     private final int tx, rx;
 
-    private StateHostInfo(Header header, byte[] payloadContent, Builder builder) {
+    private StateWifiInfo(Header header, byte[] payloadContent, Builder builder) {
         super(header, payloadContent);
         this.signal = builder.signal;
         this.tx = builder.tx;
         this.rx = builder.rx;
     }
 
-    public static class Builder extends AbstractBuilder<StateHostInfo, Builder> {
+    public static class Builder extends AbstractBuilder<StateWifiInfo, Builder> {
         private float signal = 0f;
         private int tx, rx;
 
         public Builder() {
-            super(MessageType.StateHostInfo, Constants.SIZE_STATE_SIGNAL_INFO);
+            super(MessageType.StateWifiInfo, Constants.SIZE_STATE_SIGNAL_INFO);
         }
 
         public Builder signal(float signal) {
@@ -49,10 +49,10 @@ public class StateHostInfo extends AbstractMessage {
         }
 
         @Override
-        public StateHostInfo build() {
+        public StateWifiInfo build() {
             ByteBuffer buffer = ByteUtils.allocateByteBuffer(Constants.SIZE_STATE_SIGNAL_INFO);
             buffer.putFloat(signal).putInt(tx).putInt(rx).putShort((short) 0);
-            return new StateHostInfo(buildHeader(), buffer.array(), this);
+            return new StateWifiInfo(buildHeader(), buffer.array(), this);
         }
 
         @Override
@@ -61,10 +61,10 @@ public class StateHostInfo extends AbstractMessage {
         }
     }
 
-    public static StateHostInfo valueOf(byte[] content) {
+    public static StateWifiInfo valueOf(byte[] content) {
         final int SIZE = Constants.SIZE_HEADER + Constants.SIZE_STATE_SIGNAL_INFO;
         if(content.length < SIZE) {
-            throw MalformedMessageException.createInvalidSize("StateHostInfo", SIZE, content.length);
+            throw MalformedMessageException.createInvalidSize("StateWifiInfo", SIZE, content.length);
         }
 
         final Header h = Header.valueOf(content);
@@ -78,7 +78,7 @@ public class StateHostInfo extends AbstractMessage {
 
         final byte[] payload = Arrays.copyOfRange(content, Constants.SIZE_HEADER, SIZE);
 
-        return new StateHostInfo(h, payload, b);
+        return new StateWifiInfo(h, payload, b);
     }
 
     public float getSignal() {
@@ -95,9 +95,9 @@ public class StateHostInfo extends AbstractMessage {
 
     @Override
     public String toString() {
-        return "StateHostInfo{" +
+        return "StateWifiInfo{" +
                 "signal: " + signal + "mW" +
-                ", tx: " + Integer.toUnsignedString(tx) + " bytes" +
+                ", tx: " + Integer.toUnsignedString(tx) + " bytes " +
                 ", rx: " + Integer.toUnsignedString(rx) + " bytes" +
                 '}';
     }

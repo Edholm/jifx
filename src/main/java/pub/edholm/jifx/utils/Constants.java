@@ -12,7 +12,7 @@ public class Constants {
 
     public static final int PORT = 56700;
 
-    public static final int SIZE_STATE_HOST_INFO = 14;
+    public static final int SIZE_STATE_SIGNAL_INFO = 14;
     public static final int SIZE_STATE_HOST_FIRMWARE = 20;
     public static final int SIZE_INFRARED = 2;
     public static final int SIZE_SET_LIGHT_POWER = 6;
