@@ -39,6 +39,7 @@ public final class FrameAddress implements MessagePart {
          * and zero-fill the last two bytes. A target device address of all zeroes effectively addresses all devices
          * on the local network. The Frame tagged field must be set accordingly.
          *
+         * @param target must be in little-endian order
          * @see Frame.Builder#tagged(boolean)
          */
         public Builder target(byte[] target) {
