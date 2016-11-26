@@ -55,7 +55,7 @@ public class Time implements MessagePart {
 
     @Override
     public byte[] getContent() {
-        return content;
+        return Arrays.copyOf(content, content.length);
     }
 
     @Override

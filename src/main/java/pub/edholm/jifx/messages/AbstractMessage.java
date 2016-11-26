@@ -26,7 +26,7 @@ public abstract class AbstractMessage implements Message {
 
     @Override
     public byte[] getPayload() {
-        return payloadContent;
+        return Arrays.copyOf(payloadContent, payloadContent.length);
     }
 
     @Override

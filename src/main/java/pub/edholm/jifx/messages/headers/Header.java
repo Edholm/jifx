@@ -8,6 +8,7 @@ import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * The header of a Lifx message without the payload part
@@ -119,7 +120,7 @@ public class Header implements MessagePart {
     }
 
     public byte[] getTarget() {
-        return frameAddress.getTarget();
+        return Arrays.copyOf(frameAddress.getTarget(), frameAddress.getTarget().length);
     }
 
     public boolean isAckRequired() {
@@ -145,7 +146,7 @@ public class Header implements MessagePart {
 
     @Override
     public byte[] getContent() {
-        return contents;
+        return Arrays.copyOf(contents, contents.length);
     }
 
     @Override
