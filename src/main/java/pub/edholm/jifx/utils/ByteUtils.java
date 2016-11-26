@@ -48,4 +48,9 @@ public final class ByteUtils {
         buffer.putLong(l);
         return buffer.array();
     }
+
+    public static ByteBuffer allocateByteBuffer(int capacity) {
+        final ByteBuffer buffer = ByteBuffer.allocate(capacity);
+        return buffer.order(Constants.BYTE_ORDER);
+    }
 }
