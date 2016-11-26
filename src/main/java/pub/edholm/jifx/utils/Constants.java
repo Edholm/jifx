@@ -26,6 +26,7 @@ public class Constants {
     public static final int SIZE_FRAME_ADDRESS = 16;
     public static final int SIZE_FRAME = 8;
     public static final int SIZE_HEADER = SIZE_FRAME + SIZE_FRAME_ADDRESS + SIZE_PROTOCOL_HEADER;
+    public static final int SIZE_LABEL = 32;
 
     public static ByteOrder BYTE_ORDER = ByteOrder.LITTLE_ENDIAN;
 }

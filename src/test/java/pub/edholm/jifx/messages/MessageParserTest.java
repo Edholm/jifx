@@ -2,6 +2,7 @@ package pub.edholm.jifx.messages;
 
 import org.junit.Test;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
+import pub.edholm.jifx.messages.datatypes.Label;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.messages.datatypes.Service;
 import pub.edholm.jifx.messages.payloads.*;
@@ -22,7 +23,7 @@ public class MessageParserTest {
             new SetColor.Builder().build(),
             new SetInfrared.Builder((short) 125).build(),
             new SetLightPower.Builder(true, 1025).build(),
-            new State.Builder(new Hsbk.Builder().build(), new PowerLevel(true), "Label schmäjbel").build(),
+            new State.Builder(new Hsbk.Builder().build(), new PowerLevel(true), Label.valueOf("Label schmäjbel")).build(),
             new StateInfrared.Builder((short) 1111).build(),
             new StatePower.Builder(true, true).build(),
             new StateService.Builder(Service.UDP, Constants.PORT).build());

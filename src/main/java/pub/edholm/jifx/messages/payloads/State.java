@@ -5,13 +5,13 @@ import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
+import pub.edholm.jifx.messages.datatypes.Label;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.messages.headers.Header;
 import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -20,9 +20,9 @@ import java.util.Arrays;
 public class State extends AbstractMessage {
     private final Hsbk color;
     private final PowerLevel power;
-    private final String label;
+    private final Label label;
 
-    private State(Header header, byte[] payloadContent, Hsbk color, PowerLevel power, String label) {
+    private State(Header header, byte[] payloadContent, Hsbk color, PowerLevel power, Label label) {
         super(header, payloadContent);
         this.color = color;
         this.power = power;
@@ -32,9 +32,9 @@ public class State extends AbstractMessage {
     public static class Builder extends AbstractBuilder<State, Builder> {
         private final Hsbk color;
         private final PowerLevel power;
-        private final String label;
+        private final Label label;
 
-        public Builder(Hsbk color, PowerLevel power, String label) {
+        public Builder(Hsbk color, PowerLevel power, Label label) {
             super(MessageType.State, Constants.SIZE_STATE);
             this.color = color;
             this.power = power;
@@ -47,11 +47,7 @@ public class State extends AbstractMessage {
         public State build() {
             ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_STATE);
             bb.put(color.getContent()).putShort((short) 0).put(power.getContent());
-
-            ByteBuffer labelBuffer = ByteUtils.allocateByteBuffer(32);
-            labelBuffer.put(label.getBytes(StandardCharsets.UTF_8));
-
-            bb.put(labelBuffer.array()).putLong(0L);
+            bb.put(label.getContent()).putLong(0L);
 
             return new State(buildHeader(), bb.array(), color, power, label);
         }
@@ -81,23 +77,14 @@ public class State extends AbstractMessage {
         final byte[] powerLevelContent = new byte[Constants.SIZE_POWER_LEVEL];
         bb.get(powerLevelContent, 0, Constants.SIZE_POWER_LEVEL);
 
-        final byte[] labelContent = new byte[32];
-        bb.get(labelContent, 0, 32);
+        final byte[] labelContent = new byte[Constants.SIZE_LABEL];
+        bb.get(labelContent, 0, Constants.SIZE_LABEL);
 
         final Hsbk hsbk = Hsbk.valueOf(hsbkContents);
         final PowerLevel powerLevel = PowerLevel.valueOf(powerLevelContent);
-        final String label = new String(Arrays.copyOf(labelContent, indexOf(labelContent, (byte) 0)), StandardCharsets.UTF_8);
+        final Label label = Label.valueOf(labelContent);
 
         return new State(h, payloadContent, hsbk, powerLevel, label);
-    }
-
-    private static int indexOf(byte[] content, byte value) {
-        for (int i = 0; i < content.length; i++) {
-            if (content[i] == value) {
-                return i;
-            }
-        }
-        return content.length;
     }
 
     public Hsbk getColor() {
@@ -108,7 +95,7 @@ public class State extends AbstractMessage {
         return power;
     }
 
-    public String getLabel() {
+    public Label getLabel() {
         return label;
     }
 
@@ -117,7 +104,7 @@ public class State extends AbstractMessage {
         return "State {" +
                 "color: " + color +
                 ", power: " + power +
-                ", label: '" + label + "'" +
+                ", label: " + label +
                 "}";
     }
 }

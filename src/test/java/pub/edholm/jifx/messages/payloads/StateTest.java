@@ -3,6 +3,7 @@ package pub.edholm.jifx.messages.payloads;
 import org.junit.Test;
 import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
+import pub.edholm.jifx.messages.datatypes.Label;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 
 import static org.hamcrest.core.Is.is;
@@ -23,7 +24,7 @@ public class StateTest {
         Hsbk hsbk = new Hsbk.Builder().build();
         PowerLevel pl = new PowerLevel(true);
 
-        State s = new State.Builder(hsbk, pl, "apa bepa").build();
+        State s = new State.Builder(hsbk, pl, Label.valueOf("apa bepa")).build();
         State valueOf = State.valueOf(s.getContent());
         assertThat(s, is(valueOf));
     }
@@ -32,7 +33,7 @@ public class StateTest {
     public void getContent() throws Exception {
         Hsbk hsbk = new Hsbk.Builder().build();
         PowerLevel pl = new PowerLevel(true);
-        State s = new State.Builder(hsbk, pl, "apa bepa").build();
+        State s = new State.Builder(hsbk, pl, Label.valueOf("apa bepa")).build();
 
         System.out.println(s);
     }
