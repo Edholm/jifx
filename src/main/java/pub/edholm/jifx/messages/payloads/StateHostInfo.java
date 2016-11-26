@@ -96,9 +96,9 @@ public class StateHostInfo extends AbstractMessage {
     @Override
     public String toString() {
         return "StateHostInfo{" +
-                "signal=" + signal + "mW" +
-                ", tx=" + tx + " bytes" +
-                ", rx=" + rx + " bytes" +
+                "signal: " + signal + "mW" +
+                ", tx: " + tx + " bytes" +
+                ", rx: " + rx + " bytes" +
                 '}';
     }
 }

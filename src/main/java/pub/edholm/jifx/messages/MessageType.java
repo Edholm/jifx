@@ -10,7 +10,7 @@ public enum MessageType {
     GetHostInfo(12, pub.edholm.jifx.messages.payloads.Get.class),
     StateHostInfo(13, pub.edholm.jifx.messages.payloads.StateHostInfo.class),
     GetHostFirmware(14, pub.edholm.jifx.messages.payloads.Get.class),
-    StateHostFirmware(15, null),
+    StateHostFirmware(15, pub.edholm.jifx.messages.payloads.StateHostFirmware.class),
     GetWifiInfo(16, pub.edholm.jifx.messages.payloads.Get.class),
     StateWifiInfo(17, null),
     GetWifiFirmware(18, pub.edholm.jifx.messages.payloads.Get.class),

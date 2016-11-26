@@ -1,7 +1,9 @@
 package pub.edholm.jifx.messages.datatypes;
 
+import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.utils.ByteUtils;
+import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
 import java.time.Instant;
@@ -24,6 +26,15 @@ public class Time implements MessagePart {
         ByteBuffer bb = ByteUtils.allocateByteBuffer(8);
         bb.putLong(this.time);
         content = bb.array();
+    }
+
+    public static Time valueOf(byte[] content) {
+        if (content.length < 8) {
+            throw MalformedMessageException.createInvalidSize("Time", 8, content.length);
+        }
+        ByteBuffer buffer = ByteBuffer.wrap(content);
+        buffer.order(Constants.BYTE_ORDER);
+        return new Time(buffer.getLong());
     }
 
     /**
@@ -53,9 +64,7 @@ public class Time implements MessagePart {
         if (o == null || getClass() != o.getClass()) return false;
 
         Time time = (Time) o;
-
         return Arrays.equals(content, time.content);
-
     }
 
     @Override
