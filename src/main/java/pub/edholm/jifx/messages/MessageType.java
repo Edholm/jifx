@@ -27,7 +27,7 @@ public enum MessageType {
     StateInfo(35, null),
     Acknowledgement(45, pub.edholm.jifx.messages.payloads.Acknowledgement.class),
     GetLocation(48, pub.edholm.jifx.messages.payloads.Get.class),
-    StateLocation(50, null),
+    StateLocation(50, pub.edholm.jifx.messages.payloads.StateLocation.class),
     GetGroup(51, pub.edholm.jifx.messages.payloads.Get.class),
     StateGroup(53, pub.edholm.jifx.messages.payloads.StateGroup.class),
     EchoRequest(58, pub.edholm.jifx.messages.payloads.EchoRequest.class),
