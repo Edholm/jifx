@@ -75,7 +75,7 @@ public class Time implements MessagePart {
     @Override
     public String toString() {
         return "Time{" +
-                "time=" + time +
+                "time=" + Long.toUnsignedString(time) +
                 ", parsed=" + getInstant().toString() +
                 '}';
     }

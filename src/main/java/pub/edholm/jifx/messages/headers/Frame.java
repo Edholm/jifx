@@ -167,7 +167,7 @@ public final class Frame implements MessagePart {
     @Override
     public String toString() {
         return "Frame {" +
-                "size: " + (size & 0xffff) + " (" + ByteUtils.toHexString(size) + ")" +
+                "size: " + Short.toUnsignedInt(size) + " (" + ByteUtils.toHexString(size) + ")" +
                 ", origin: " + origin +
                 ", tagged: " + ((tagged > 0) ? "true" : "false") +
                 ", addressable: " + ((addressable > 0) ? "true" : "false") +

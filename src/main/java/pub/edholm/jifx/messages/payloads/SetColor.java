@@ -122,7 +122,7 @@ public class SetColor extends AbstractMessage implements Message {
     public String toString() {
         return "SetColor{" +
                 "color=" + color +
-                ", duration=" + duration +
+                ", duration=" + Integer.toUnsignedString(duration) +
                 '}';
     }
 }

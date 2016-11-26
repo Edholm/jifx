@@ -86,7 +86,7 @@ public class StateService extends AbstractMessage {
     public String toString() {
         return "StateService{" +
                 "service=" + service +
-                ", port=" + port +
+                ", port=" + Integer.toUnsignedString(port) +
                 '}';
     }
 }

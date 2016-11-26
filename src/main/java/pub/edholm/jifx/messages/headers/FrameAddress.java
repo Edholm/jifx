@@ -151,7 +151,7 @@ public final class FrameAddress implements MessagePart {
                 "target: " + ByteUtils.toMacAddressString(Arrays.copyOfRange(target, 0, 6)) + // remove left-padding
                 ", ackRequired: " + ((ackRequired > 0) ? "true" : "false") +
                 ", resRequired: " + ((resRequired > 0) ? "true" : "false") +
-                ", sequence: " + (sequence & 0xff) + String.format(" (0x%x)", sequence) +
+                ", sequence: " + Short.toUnsignedInt(sequence) + String.format(" (0x%x)", sequence) +
                 "}";
     }
 

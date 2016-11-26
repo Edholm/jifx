@@ -52,7 +52,7 @@ public class StateInfrared extends AbstractInfrared {
     @Override
     public String toString() {
         return "StateInfrared{" +
-                "brightness=" + getBrightness() +
+                "brightness=" + Short.toUnsignedInt(getBrightness()) +
                 '}';
     }
 }

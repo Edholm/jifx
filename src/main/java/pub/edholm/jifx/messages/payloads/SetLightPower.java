@@ -80,7 +80,7 @@ public class SetLightPower extends AbstractMessage {
     public String toString() {
         return "SetLightPower{" +
                 "level=" + level +
-                ", duration=" + duration +
+                ", duration=" + Integer.toUnsignedString(duration) +
                 '}';
     }
 }
