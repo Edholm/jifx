@@ -47,7 +47,7 @@ public class MessageParser {
             valueOfMethod = klass.getMethod(VALUEOF_METHOD_NAME, VALUEOF_PARAMETER_CLASS);
             return (Message) valueOfMethod.invoke(null, (Object) contents);
         } catch (NoSuchMethodException | IllegalAccessException e) {
-            throw new AssertionError("Method that should be implemented probably isn't");
+            throw new AssertionError(VALUEOF_METHOD_NAME + " method isn't implemented in " + klass);
         } catch (InvocationTargetException e) {
             throw new MessageParseException(String.format("Unable to parse contents into a message. Content length: %d bytes", contents.length), e.getCause());
         }
