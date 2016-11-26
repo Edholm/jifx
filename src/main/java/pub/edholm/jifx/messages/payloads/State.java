@@ -7,7 +7,6 @@ import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Hsbk;
 import pub.edholm.jifx.messages.datatypes.PowerLevel;
 import pub.edholm.jifx.messages.headers.Header;
-import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -119,12 +118,10 @@ public class State extends AbstractMessage {
 
     @Override
     public String toString() {
-        return "State{" +
-                "color=" + color +
-                ", power=" + power +
-                ", label='" + label + '\'' +
-                ", content=" + ByteUtils.toHexString(getPayload()) +
-                ", header=" + getHeader() +
-                '}';
+        return "State {" +
+                "color: " + color +
+                ", power: " + power +
+                ", label: '" + label + "'" +
+                "}";
     }
 }

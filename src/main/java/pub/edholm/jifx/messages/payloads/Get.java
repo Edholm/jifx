@@ -5,6 +5,7 @@ import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.headers.Header;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 /**
@@ -28,7 +29,7 @@ public class Get extends AbstractMessage {
             if(getType == MessageType.GetService) {
                 this.resRequired(false);
                 this.tagged(true);
-                this.target(0);
+                this.target(ByteUtils.emptyByteArray(8));
             } else {
                 this.resRequired(true);
                 this.tagged(false);

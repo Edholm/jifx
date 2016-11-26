@@ -53,7 +53,6 @@ public class SetInfrared extends AbstractInfrared {
     public String toString() {
         return "SetInfrared{" +
                 "brightness=" + getBrightness() +
-                ", header=" + getHeader() +
                 '}';
     }
 }

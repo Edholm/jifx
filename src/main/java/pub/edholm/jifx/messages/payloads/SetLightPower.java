@@ -85,7 +85,6 @@ public class SetLightPower extends AbstractMessage {
         return "SetLightPower{" +
                 "level=" + level +
                 ", duration=" + duration +
-                ", header=" + getHeader() +
                 '}';
     }
 }

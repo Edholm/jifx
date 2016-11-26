@@ -2,6 +2,7 @@ package pub.edholm.jifx.messages.headers;
 
 import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.MessagePart;
+import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -20,7 +21,7 @@ import java.util.Arrays;
 public final class FrameAddress implements MessagePart {
     private static final int ACK_REQUIRED_POSITION = 1;
     private static final int RES_REQUIRED_POSITION = 0;
-    private final long target;
+    private final byte[] target;
     private final byte ackRequired;
     private final byte resRequired;
     private final byte sequence;
@@ -28,7 +29,7 @@ public final class FrameAddress implements MessagePart {
     private final byte[] content;
 
     public static final class Builder {
-        private long target = 0x0;
+        private byte[] target = new byte[8];
         private byte ackRequired = 0x0;
         private byte resRequired = 0x0;
         private byte sequence = 0x0;
@@ -40,8 +41,8 @@ public final class FrameAddress implements MessagePart {
          *
          * @see Frame.Builder#tagged(boolean)
          */
-        public Builder target(long target) {
-            this.target = target;
+        public Builder target(byte[] target) {
+            this.target = Arrays.copyOf(target, 8);
             return this;
         }
 
@@ -87,7 +88,7 @@ public final class FrameAddress implements MessagePart {
 
         ByteBuffer bb = ByteBuffer.allocate(Constants.SIZE_FRAME_ADDRESS);
         bb.order(Constants.BYTE_ORDER);
-        bb.putLong(target);
+        bb.put(target);
         bb.put(new byte[]{0, 0, 0, 0, 0, 0});
         bb.put((byte) (ackRequired | resRequired));
         bb.put((byte) (sequence & 0xff)); // & with 0xff to get unsigned value
@@ -102,7 +103,8 @@ public final class FrameAddress implements MessagePart {
         ByteBuffer bb = ByteBuffer.wrap(content);
         bb.order(Constants.BYTE_ORDER);
 
-        final long target = bb.getLong();
+        final byte[] target = new byte[8];
+        bb.get(target, 0, 8);
         bb.position(bb.position() + 6); // Skip reserved fields
         final byte ackRes = bb.get();
         final byte seq = bb.get();
@@ -117,7 +119,7 @@ public final class FrameAddress implements MessagePart {
                 .resRequired(res).build();
     }
 
-    public long getTarget() {
+    public byte[] getTarget() {
         return target;
     }
 
@@ -145,12 +147,12 @@ public final class FrameAddress implements MessagePart {
 
     @Override
     public String toString() {
-        return "FrameAddress {\n" +
-                "\ttarget: " + String.format("0x%x", target) +
-                "\n\t,ackRequired: " + ((ackRequired > 0) ? "true" : "false") +
-                "\n\t,resRequired: " + ((resRequired > 0) ? "true" : "false") +
-                "\n\t,sequence: " + (sequence & 0xff) + String.format(" (0x%x)", sequence) +
-                "\n}";
+        return "FrameAddress {" +
+                "target: " + ByteUtils.toMacAddressString(Arrays.copyOfRange(target, 0, 6)) + // remove left-padding
+                ", ackRequired: " + ((ackRequired > 0) ? "true" : "false") +
+                ", resRequired: " + ((resRequired > 0) ? "true" : "false") +
+                ", sequence: " + (sequence & 0xff) + String.format(" (0x%x)", sequence) +
+                "}";
     }
 
     @Override

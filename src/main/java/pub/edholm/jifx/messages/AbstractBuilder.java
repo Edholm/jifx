@@ -12,7 +12,7 @@ public abstract class AbstractBuilder<T, B extends AbstractBuilder<T, B>> {
     protected int payloadSize;
 
     // Frame address
-    protected long target = 0x0;
+    protected byte[] target = new byte[8];
     protected boolean ackRequired = false;
     protected boolean resRequired = false;
     protected int sequence = 0x0;
@@ -45,9 +45,9 @@ public abstract class AbstractBuilder<T, B extends AbstractBuilder<T, B>> {
     }
 
     /**
-     * @see pub.edholm.jifx.messages.headers.FrameAddress.Builder#target(long)
+     * @see pub.edholm.jifx.messages.headers.FrameAddress.Builder#target(byte[])
      */
-    public B target(long target) {
+    public B target(byte[] target) {
         this.target = target;
         return thisObject();
     }

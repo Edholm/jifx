@@ -17,7 +17,7 @@ public class GetTest {
 
     @Test
     public void valueOf() throws Exception {
-        final Get g = new Get.Builder(MessageType.Get).target(0xadde).source(0xeda).build();
+        final Get g = new Get.Builder(MessageType.Get).target(new byte[]{(byte) 0xad, (byte) 0xde}).source(0xeda).build();
         final Get other = Get.valueOf(g.getContent());
         assertThat(other, is(g));
     }

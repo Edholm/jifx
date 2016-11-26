@@ -136,11 +136,10 @@ public final class Hsbk implements MessagePart {
     @Override
     public String toString() {
         return "Hsbk{" +
-                "hue=" + ByteUtils.toHexString(hue) +
-                ", saturation=" + ByteUtils.toHexString(saturation) +
-                ", brightness=" + ByteUtils.toHexString(brightness) +
-                ", kelvin=" + kelvin +
-                ", content=" + ByteUtils.toHexString(getContent()) +
+                "hue: " + ByteUtils.toHexString(hue) +
+                ", saturation: " + ByteUtils.toHexString(saturation) +
+                ", brightness: " + ByteUtils.toHexString(brightness) +
+                ", kelvin: " + kelvin +
                 '}';
     }
 }

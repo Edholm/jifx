@@ -4,11 +4,9 @@ import pub.edholm.jifx.exceptions.MalformedMessageException;
 import pub.edholm.jifx.messages.AbstractBuilder;
 import pub.edholm.jifx.messages.MessagePart;
 import pub.edholm.jifx.messages.MessageType;
-import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 /**
  * The header of a Lifx message without the payload part
@@ -120,7 +118,7 @@ public class Header implements MessagePart {
         return frame.getSource();
     }
 
-    public long getTarget() {
+    public byte[] getTarget() {
         return frameAddress.getTarget();
     }
 
@@ -172,11 +170,10 @@ public class Header implements MessagePart {
 
     @Override
     public String toString() {
-        return "Header{" +
-                "frame=" + frame +
-                ", frameAddress=" + frameAddress +
-                ", protocolHeader=" + protocolHeader +
-                ", contents=" + ByteUtils.toHexString(contents) +
-                '}';
+        return "Header {" +
+                "" + frame +
+                ", " + frameAddress +
+                ", " + protocolHeader +
+                "}";
     }
 }

@@ -53,9 +53,9 @@ public final class ProtocolHeader implements MessagePart {
 
     @Override
     public String toString() {
-        return "ProtocolHeader {\n" +
-                "\ttype: " + type +
-                "\n}";
+        return "ProtocolHeader {" +
+                "type: " + type +
+                "}";
     }
 
     @Override

@@ -6,7 +6,6 @@ import pub.edholm.jifx.messages.AbstractMessage;
 import pub.edholm.jifx.messages.MessageType;
 import pub.edholm.jifx.messages.datatypes.Service;
 import pub.edholm.jifx.messages.headers.Header;
-import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -90,8 +89,6 @@ public class StateService extends AbstractMessage {
         return "StateService{" +
                 "service=" + service +
                 ", port=" + port +
-                ", payload=" + ByteUtils.toHexString(getPayload()) +
-                ", header=" + getHeader() +
                 '}';
     }
 }

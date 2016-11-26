@@ -1,7 +1,6 @@
 package pub.edholm.jifx.messages.datatypes;
 
 import pub.edholm.jifx.messages.MessagePart;
-import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
@@ -66,8 +65,7 @@ public class PowerLevel implements MessagePart {
     @Override
     public String toString() {
         return "PowerLevel{" +
-                "poweredOn=" + isPoweredOn() +
-                ", level=" + ByteUtils.toHexString(level) +
+                "poweredOn: " + isPoweredOn() +
                 '}';
     }
 }

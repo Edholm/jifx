@@ -61,7 +61,6 @@ public class StatePower extends AbstractMessage {
     public String toString() {
         return "StatePower{" +
                 "level=" + level +
-                ", header=" + getHeader() +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package pub.edholm.jifx.messages;
 
 import org.junit.Test;
 import pub.edholm.jifx.messages.headers.FrameAddress;
+import pub.edholm.jifx.utils.ByteUtils;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -13,7 +14,7 @@ public class FrameAddressTest {
     @Test
     public void valueOf() throws Exception {
         FrameAddress frameAddress = new FrameAddress.Builder()
-                .target(0xfedaf)
+                .target(ByteUtils.longToBytes(0xfedaf))
                 .sequence(0xed)
                 .ackRequired(false)
                 .resRequired(true).build();
@@ -38,7 +39,7 @@ public class FrameAddressTest {
     @Test
     public void getContent() throws Exception {
         FrameAddress fa1 = new FrameAddress.Builder().build();
-        FrameAddress fa2 = new FrameAddress.Builder().target(4930653221840L).ackRequired(false).resRequired(true).sequence(97).build();
+        FrameAddress fa2 = new FrameAddress.Builder().target(ByteUtils.longToBytes(4930653221840L)).ackRequired(false).resRequired(true).sequence(97).build();
 
         System.out.println("FA1: " + fa1);
         System.out.println("FA2: " + fa2);

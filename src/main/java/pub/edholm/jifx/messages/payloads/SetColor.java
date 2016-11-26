@@ -124,7 +124,6 @@ public class SetColor extends AbstractMessage implements Message {
         return "SetColor{" +
                 "color=" + color +
                 ", duration=" + duration +
-                ", header=" + getHeader() +
                 '}';
     }
 }
