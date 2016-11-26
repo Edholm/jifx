@@ -8,6 +8,7 @@ package pub.edholm.jifx.messages.datatypes;
  */
 public enum Service {
     UDP(1),
+    Reserved(5), // Undocumented service type
     Unknown(-1);
 
     private final byte value;
