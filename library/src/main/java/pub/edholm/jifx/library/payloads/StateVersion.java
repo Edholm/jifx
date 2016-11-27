@@ -90,6 +90,12 @@ public class StateVersion extends AbstractMessage {
 
     private void initializeProducts() {
         if (products == null) {
+            if (productsUrl == null) {
+                System.err.println("Could not find products.json resource. Have you pulled the git submodule?");
+                products = Collections.emptyList();
+                return;
+            }
+            
             try {
                 products = JSON.std.listFrom(productsUrl);
             } catch (IOException e) {
