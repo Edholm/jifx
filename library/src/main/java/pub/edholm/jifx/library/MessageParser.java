@@ -1,10 +1,9 @@
 package pub.edholm.jifx.library;
 
-import pub.edholm.jifx.library.exceptions.MessageParseException;
-import pub.edholm.jifx.library.utils.Constants;
 import pub.edholm.jifx.library.exceptions.MalformedMessageException;
+import pub.edholm.jifx.library.exceptions.MessageParseException;
 import pub.edholm.jifx.library.headers.ProtocolHeader;
-import pub.edholm.jifx.library.utils.ByteUtils;
+import pub.edholm.jifx.library.utils.Constants;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -38,8 +37,7 @@ public class MessageParser {
 
         final Class<? extends Message> klass = protocolHeader.getType().getImplementationClass();
         if (klass == null) {
-            System.err.println("Unknown contents: " + ByteUtils.toHexString(contents));
-            throw new MessageParseException("Cannot parse contents due to unknown implementation class. Message type: " + protocolHeader.getType());
+            throw new MessageParseException("Unable to parse unknown message. Type: " + protocolHeader.getType());
         }
 
         Method valueOfMethod;

@@ -1,7 +1,7 @@
 package pub.edholm.jifx.library;
 
-import pub.edholm.jifx.library.payloads.*;
 import pub.edholm.jifx.library.payloads.BasicLabel;
+import pub.edholm.jifx.library.payloads.StatePower;
 
 /**
  * Created by Emil Edholm on 2016-11-04.
@@ -56,10 +56,11 @@ public enum MessageType {
     Unknown(-1, null);
 
     private final short type;
+    private short unknownType;
     private final Class<? extends Message> implementationClass;
 
     MessageType(int type, Class<? extends Message> implementationClass) {
-        this.type = (short) type;
+        this.type = (short) (type & 0xffff);
         this.implementationClass = implementationClass;
     }
 
@@ -77,11 +78,13 @@ public enum MessageType {
                 return device;
             }
         }
-        return MessageType.Unknown;
+        MessageType unknown = MessageType.Unknown;
+        unknown.unknownType = type;
+        return unknown;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "(" + type + ")";
+        return super.toString() + "(" + Short.toUnsignedInt(this == Unknown ? unknownType : type) + ")";
     }
 }
