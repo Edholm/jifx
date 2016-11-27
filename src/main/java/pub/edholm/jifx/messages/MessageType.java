@@ -1,5 +1,7 @@
 package pub.edholm.jifx.messages;
 
+import pub.edholm.jifx.messages.payloads.BasicLabel;
+
 /**
  * Created by Emil Edholm on 2016-11-04.
  */
@@ -19,8 +21,8 @@ public enum MessageType {
     SetDevicePower(21, pub.edholm.jifx.messages.payloads.SetDevicePower.class),
     StateDevicePower(22, pub.edholm.jifx.messages.payloads.StatePower.class),
     GetLabel(23, pub.edholm.jifx.messages.payloads.Get.class),
-    SetLabel(24, null),
-    StateLabel(25, null),
+    SetLabel(24, BasicLabel.class),
+    StateLabel(25, BasicLabel.class),
     GetVersion(32, pub.edholm.jifx.messages.payloads.Get.class),
     StateVersion(33, null),
     GetInfo(34, pub.edholm.jifx.messages.payloads.Get.class),
