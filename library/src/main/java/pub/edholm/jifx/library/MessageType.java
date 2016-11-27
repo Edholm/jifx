@@ -3,6 +3,9 @@ package pub.edholm.jifx.library;
 import pub.edholm.jifx.library.payloads.BasicLabel;
 import pub.edholm.jifx.library.payloads.StatePower;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Emil Edholm on 2016-11-04.
  */
@@ -53,11 +56,13 @@ public enum MessageType {
     StateZone(503, null),
     StateMultiZone(506, null),
 
-    Unknown(-1, null);
+    Unknown(-1, null),
+    Reserved(-2, null);
 
-    private final short type;
-    private short unknownType;
+    private short type;
     private final Class<? extends Message> implementationClass;
+
+    private final static List<Short> RESERVED_TYPES = Arrays.asList((short) 54, (short) 56, (short) 111, (short) 65430);
 
     MessageType(int type, Class<? extends Message> implementationClass) {
         this.type = (short) (type & 0xffff);
@@ -78,13 +83,21 @@ public enum MessageType {
                 return device;
             }
         }
-        MessageType unknown = MessageType.Unknown;
-        unknown.unknownType = type;
-        return unknown;
+
+
+        MessageType messageType;
+        if (RESERVED_TYPES.contains(type)) {
+            messageType = Reserved;
+        } else {
+            messageType = Unknown;
+        }
+
+        messageType.type = type;
+        return messageType;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "(" + Short.toUnsignedInt(this == Unknown ? unknownType : type) + ")";
+        return super.toString() + "(" + Short.toUnsignedInt(type) + ")";
     }
 }

@@ -23,8 +23,8 @@ public class MessageParser {
     /**
      * Try to parse a byte array into a Message
      *
-     * @throws MalformedMessageException
-     * @throws MessageParseException
+     * @throws MalformedMessageException If the supplied message is malformed in some way
+     * @throws MessageParseException If the supplied message has an unknown or reserved type
      */
     public static Message parse(byte[] contents) {
         if (contents.length < Constants.SIZE_HEADER) {
