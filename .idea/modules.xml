@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jifx.iml" filepath="$PROJECT_DIR$/.idea/modules/jifx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jifx_main.iml" filepath="$PROJECT_DIR$/.idea/modules/jifx_main.iml" group="jifx" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jifx_test.iml" filepath="$PROJECT_DIR$/.idea/modules/jifx_test.iml" group="jifx" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/examples.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/examples.iml" group="examples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/examples_main.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/examples_main.iml" group="examples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/examples_test.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/examples_test.iml" group="examples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/library.iml" group="library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/library_main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/library_main.iml" group="library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/library_test.iml" filepath="$PROJECT_DIR$/.idea/modules/library/library_test.iml" group="library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pub.edholm.jifx.iml" filepath="$PROJECT_DIR$/.idea/modules/pub.edholm.jifx.iml" />
     </modules>
   </component>
 </project>

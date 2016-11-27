@@ -2,8 +2,16 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
+      <module name="examples_main" target="1.8" />
+      <module name="examples_test" target="1.8" />
       <module name="jifx_main" target="1.8" />
       <module name="jifx_test" target="1.8" />
+      <module name="library_main" target="1.8" />
+      <module name="library_test" target="1.8" />
+      <module name="pub.edholm.jifx_main" target="1.8" />
+      <module name="pub.edholm.jifx_test" target="1.8" />
+      <module name="pub.edholm.library.jifx_main" target="1.8" />
+      <module name="pub.edholm.library.jifx_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,2 +1,3 @@
-rootProject.name = 'jifx'
-
+rootProject.name = 'pub.edholm.jifx'
+include 'examples'
+include 'library'
