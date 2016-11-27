@@ -59,7 +59,7 @@ public class Label implements MessagePart {
 
     @Override
     public String toString() {
-        return "Label{'" + label + '\'' + '}';
+        return label;
     }
 
     @Override
