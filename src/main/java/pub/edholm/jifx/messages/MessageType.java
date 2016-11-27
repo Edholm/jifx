@@ -26,7 +26,7 @@ public enum MessageType {
     GetVersion(32, pub.edholm.jifx.messages.payloads.Get.class),
     StateVersion(33, pub.edholm.jifx.messages.payloads.StateVersion.class),
     GetInfo(34, pub.edholm.jifx.messages.payloads.Get.class),
-    StateInfo(35, null),
+    StateInfo(35, pub.edholm.jifx.messages.payloads.StateInfo.class),
     Acknowledgement(45, pub.edholm.jifx.messages.payloads.Acknowledgement.class),
     GetLocation(48, pub.edholm.jifx.messages.payloads.Get.class),
     StateLocation(50, pub.edholm.jifx.messages.payloads.StateLocation.class),

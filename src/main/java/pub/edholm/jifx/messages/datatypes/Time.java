@@ -6,6 +6,7 @@ import pub.edholm.jifx.utils.ByteUtils;
 import pub.edholm.jifx.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +49,10 @@ public class Time implements MessagePart {
         return Instant.ofEpochMilli(TimeUnit.NANOSECONDS.toMillis(time));
     }
 
+    public Duration getDuration() {
+        return Duration.ofNanos(time);
+    }
+
     @Override
     public int size() {
         return content.length;
@@ -75,8 +80,9 @@ public class Time implements MessagePart {
     @Override
     public String toString() {
         return "Time{" +
-                "time=" + Long.toUnsignedString(time) +
-                ", parsed=" + getInstant().toString() +
+                "time: " + Long.toUnsignedString(time) + "ns" +
+                ", instant: " + getInstant().toString() +
+                ", duration: " + getDuration().toString() +
                 '}';
     }
 }
