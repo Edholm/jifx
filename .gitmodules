@@ -1,0 +1,3 @@
+[submodule "library/src/main/resources/products"]
+	path = library/src/main/resources/products
+	url = https://github.com/LIFX/products.git
