@@ -13,6 +13,7 @@ public class Constants {
 
     public static final int PORT = 56700;
 
+    public static final int SIZE_STATE_VERSION = 12;
     public static final int SIZE_STATE_WIFI_FIRMWARE = 20;
     public static final int SIZE_ECHO = 64;
     public static final int SIZE_STATE_SIGNAL_INFO = 14;

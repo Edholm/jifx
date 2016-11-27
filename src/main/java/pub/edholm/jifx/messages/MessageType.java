@@ -24,7 +24,7 @@ public enum MessageType {
     SetLabel(24, BasicLabel.class),
     StateLabel(25, BasicLabel.class),
     GetVersion(32, pub.edholm.jifx.messages.payloads.Get.class),
-    StateVersion(33, null),
+    StateVersion(33, pub.edholm.jifx.messages.payloads.StateVersion.class),
     GetInfo(34, pub.edholm.jifx.messages.payloads.Get.class),
     StateInfo(35, null),
     Acknowledgement(45, pub.edholm.jifx.messages.payloads.Acknowledgement.class),
