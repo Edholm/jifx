@@ -8,7 +8,7 @@ sourceCompatibility = 1.8
 mainClassName = "edholm.pub.jifx.examples.Jifx"
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
