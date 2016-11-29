@@ -13,6 +13,8 @@ import pub.edholm.jifx.library.utils.Constants;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * Response to GetService message.
  * Provides the device Service and port. If the Service is temporarily unavailable, then the port value will be 0.
@@ -38,8 +40,8 @@ public class StateService extends AbstractMessage {
 
         public Builder(Service s, Port port) {
             super(MessageType.StateService, SIZE);
-            this.service = s;
-            this.port = port;
+            this.service = notNull(s, "Service cannot be null");
+            this.port = notNull(port, "Port cannot be null");
         }
 
         @Override

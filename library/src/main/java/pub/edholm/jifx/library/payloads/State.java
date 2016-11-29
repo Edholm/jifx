@@ -14,6 +14,8 @@ import pub.edholm.jifx.library.datatypes.Label;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * Created by Emil Edholm on 2016-11-05.
  */
@@ -36,9 +38,9 @@ public class State extends AbstractMessage {
 
         public Builder(Hsbk color, PowerLevel power, Label label) {
             super(MessageType.State, Constants.SIZE_STATE);
-            this.color = color;
-            this.power = power;
-            this.label = label;
+            this.color = notNull(color, "Color cannot be null");
+            this.power = notNull(power, "Power cannot be null");
+            this.label = notNull(label, "Label cannot be null");
         }
 
         /* TODO: delegate Hsbk builder if needed */

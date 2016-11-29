@@ -10,6 +10,8 @@ import pub.edholm.jifx.library.utils.Constants;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * A label that contains a 16 byte id, a label and a timestamp. For use with StateGroup and StateLocation
  * <br />
@@ -25,9 +27,9 @@ public class ExtendedLabel implements MessagePart {
     private final Time updatedAt;
 
     public ExtendedLabel(byte[] id, Label label, Time updatedAt) {
-        this.id = Arrays.copyOf(id, SIZE_ID);
-        this.label = label;
-        this.updatedAt = updatedAt;
+        this.id = Arrays.copyOf(notNull(id, "ID cannot be null"), SIZE_ID);
+        this.label = notNull(label, "Label cannot be null");
+        this.updatedAt = notNull(updatedAt, "UpdatedAt cannot be null");
     }
 
     public static ExtendedLabel valueOf(byte[] content) {
