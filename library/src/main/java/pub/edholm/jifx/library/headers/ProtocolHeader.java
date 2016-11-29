@@ -9,6 +9,8 @@ import pub.edholm.jifx.library.utils.Constants;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * Created by Emil Edholm on 2016-11-04.
  */
@@ -17,6 +19,7 @@ public final class ProtocolHeader implements MessagePart {
     private final byte[] content;
 
     public ProtocolHeader(MessageType t) {
+        notNull(t);
         this.type = t;
         ByteBuffer bb = ByteUtils.allocateByteBuffer(Constants.SIZE_PROTOCOL_HEADER);
         bb.putLong(0).putShort(this.type.type()).putShort((short) 0);

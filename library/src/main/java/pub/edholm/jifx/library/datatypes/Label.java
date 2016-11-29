@@ -1,5 +1,7 @@
 package pub.edholm.jifx.library.datatypes;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import pub.edholm.jifx.library.MessagePart;
 import pub.edholm.jifx.library.utils.ByteUtils;
 import pub.edholm.jifx.library.utils.Constants;
@@ -9,6 +11,9 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * Created by Emil Edholm on 2016-11-26.
  */
@@ -16,7 +21,8 @@ public class Label implements MessagePart {
     private final String label;
 
     public Label(String label) {
-        checkSize(label);
+        notNull(label, "Label cannot be null");
+        isTrue(label.getBytes().length <= Constants.SIZE_LABEL, "Label size must be <= %d bytes", Constants.SIZE_LABEL);
         this.label = label;
     }
 
@@ -33,7 +39,6 @@ public class Label implements MessagePart {
     }
 
     public static Label valueOf(String s) {
-        checkSize(s);
         return new Label(s);
     }
 
@@ -45,13 +50,6 @@ public class Label implements MessagePart {
         }
         return content.length;
     }
-
-    private static void checkSize(String s) {
-        if(s.getBytes().length > Constants.SIZE_LABEL) {
-            throw new IllegalArgumentException(String.format("%s is too large. Expected ≤ %d bytes, got: %d", s, Constants.SIZE_LABEL, s.getBytes().length));
-        }
-    }
-
 
     public String getLabel() {
         return label;
@@ -77,15 +75,20 @@ public class Label implements MessagePart {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
 
         Label label1 = (Label) o;
 
-        return label != null ? label.equals(label1.label) : label1.label == null;
+        return new EqualsBuilder()
+                .append(label, label1.label)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return label != null ? label.hashCode() : 0;
+        return new HashCodeBuilder(17, 37)
+                .append(label)
+                .toHashCode();
     }
 }

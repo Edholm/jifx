@@ -31,4 +31,9 @@ public class LabelTest {
         new Label("Lorem ipsum dolor sit amet amet..");
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testNullNotAllowed() throws Exception {
+        new Label(null);
+
+    }
 }

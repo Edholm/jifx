@@ -40,4 +40,23 @@ public class HsbkTest {
         assertThat(hsbk.size(), is(8));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testKelvinLowerBounds() throws Exception {
+        final Hsbk hsbk = new Hsbk.Builder().kelvin(2499).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testKelvinUpperBounds() throws Exception {
+        final Hsbk hsbk = new Hsbk.Builder().kelvin(9001).build();
+    }
+
+    @Test
+    public void testKelvin9000Allowed() throws Exception {
+        final Hsbk hsbk = new Hsbk.Builder().kelvin(9000).build();
+    }
+
+    @Test
+    public void testKelvin2500Allowed() throws Exception {
+        final Hsbk hsbk = new Hsbk.Builder().kelvin(2500).build();
+    }
 }

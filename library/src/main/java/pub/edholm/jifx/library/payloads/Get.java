@@ -1,5 +1,6 @@
 package pub.edholm.jifx.library.payloads;
 
+import org.apache.commons.lang3.StringUtils;
 import pub.edholm.jifx.library.exceptions.MalformedMessageException;
 import pub.edholm.jifx.library.AbstractBuilder;
 import pub.edholm.jifx.library.AbstractMessage;
@@ -7,6 +8,8 @@ import pub.edholm.jifx.library.MessageType;
 import pub.edholm.jifx.library.headers.Header;
 import pub.edholm.jifx.library.utils.ByteUtils;
 import pub.edholm.jifx.library.utils.Constants;
+
+import static org.apache.commons.lang3.Validate.isTrue;
 
 /**
  * Created by Emil Edholm on 2016-11-21.
@@ -23,9 +26,9 @@ public class Get extends AbstractMessage {
 
         public Builder(MessageType getType) {
             super(getType, 0);
-            if (!getType.toString().toLowerCase().startsWith("get")) {
-                throw new IllegalArgumentException("Expected \"Get*\" message type. Got: " + getType);
-            }
+            isTrue(StringUtils.startsWithIgnoreCase(getType.toString(), "get"),
+                    String.format("Expected \"Get*\" message type. Got: %s", getType));
+
             if(getType == MessageType.GetService) {
                 this.resRequired(false);
                 this.tagged(true);

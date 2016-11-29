@@ -8,6 +8,8 @@ import pub.edholm.jifx.library.utils.Constants;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * The Frame Address section contains the following routing information:
  * Target device address
@@ -43,6 +45,7 @@ public final class FrameAddress implements MessagePart {
          * @see Frame.Builder#tagged(boolean)
          */
         public Builder target(byte[] target) {
+            notNull(target);
             this.target = Arrays.copyOf(target, 8);
             return this;
         }

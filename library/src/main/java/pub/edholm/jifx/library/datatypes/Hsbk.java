@@ -1,11 +1,16 @@
 package pub.edholm.jifx.library.datatypes;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import pub.edholm.jifx.library.MessagePart;
+import pub.edholm.jifx.library.exceptions.MalformedMessageException;
 import pub.edholm.jifx.library.utils.ByteUtils;
 import pub.edholm.jifx.library.utils.Constants;
-import pub.edholm.jifx.library.exceptions.MalformedMessageException;
 
 import java.nio.ByteBuffer;
+
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * HSBK (Hue, Saturation, Brightness, Kelvin) is used to represent the color and color temperature of a light.
@@ -40,9 +45,7 @@ public final class Hsbk implements MessagePart {
          * Expects a value between 2500 and 9000
          */
         public Builder kelvin(int kelvin) {
-            if (kelvin < 2500 || kelvin > 9000) {
-                throw new IllegalArgumentException("Illegal kelvin value. Got: " + kelvin);
-            }
+            inclusiveBetween(2500, 9000, kelvin, "Kelvin value must be between %d and %d", 2500, 9000);
             this.kelvin = (short) kelvin;
             return this;
         }
@@ -53,6 +56,7 @@ public final class Hsbk implements MessagePart {
     }
 
     private Hsbk(Builder b) {
+        notNull(b);
         this.hue = b.hue;
         this.saturation = b.saturation;
         this.brightness = b.brightness;
@@ -107,29 +111,6 @@ public final class Hsbk implements MessagePart {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Hsbk hsbk = (Hsbk) o;
-
-        if (hue != hsbk.hue) return false;
-        if (saturation != hsbk.saturation) return false;
-        if (brightness != hsbk.brightness) return false;
-        return kelvin == hsbk.kelvin;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) hue;
-        result = 31 * result + (int) saturation;
-        result = 31 * result + (int) brightness;
-        result = 31 * result + (int) kelvin;
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Hsbk{" +
                 "hue: " + ByteUtils.toHexString(hue) +
@@ -137,5 +118,31 @@ public final class Hsbk implements MessagePart {
                 ", brightness: " + ByteUtils.toHexString(brightness) +
                 ", kelvin: " + kelvin +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hsbk hsbk = (Hsbk) o;
+
+        return new EqualsBuilder()
+                .append(hue, hsbk.hue)
+                .append(saturation, hsbk.saturation)
+                .append(brightness, hsbk.brightness)
+                .append(kelvin, hsbk.kelvin)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(hue)
+                .append(saturation)
+                .append(brightness)
+                .append(kelvin)
+                .toHashCode();
     }
 }

@@ -8,6 +8,8 @@ import pub.edholm.jifx.library.utils.Constants;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
+
 /**
  * The Frame section contains information about the following:
  * Size of the entire message
@@ -46,9 +48,7 @@ public final class Frame implements MessagePart {
          * Defaults to combined size of all the header messages: 36 bytes.
          */
         public Builder size(int size) {
-            if (size < 0 || size > 0xFFFF) {
-                throw new IllegalArgumentException("Invalid size: Got: " + size);
-            }
+            inclusiveBetween(0, 0xFFFF, size);
             this.size = (short) size;
             return this;
         }
@@ -57,9 +57,7 @@ public final class Frame implements MessagePart {
          * Sets the size as the header size + the supplied payload size
          */
         public Builder payloadSize(int size) {
-            if (size < 0 || size > 0xFFDB) {
-                throw new IllegalArgumentException("Invalid size: Got: " + size);
-            }
+            inclusiveBetween(0, 0XFFDB, size);
             this.size = (short) (TOTAL_HEADER_SIZE + size);
             return this;
         }
@@ -85,9 +83,7 @@ public final class Frame implements MessagePart {
          * @see FrameAddress.Builder#resRequired(boolean)
          */
         public Builder source(long source) {
-            if (source < 0 || source > 0xFFFFFFFFL) {
-                throw new IllegalArgumentException("Source does not fit a uint32: Got: " + source);
-            }
+            inclusiveBetween(0L, 0xFFFFFFFFL, source);
             this.source = (int) source;
             return this;
         }

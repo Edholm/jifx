@@ -32,8 +32,11 @@ public class MessageParserTest {
 
     @Test
     public void parse() throws Exception {
+        System.out.println("Start parse");
         for (Message m : messages) {
+            System.out.println(m);
             assertThat(MessageParser.parse(m.getContent()), is(m));
         }
+        System.out.println("End parse");
     }
 }
