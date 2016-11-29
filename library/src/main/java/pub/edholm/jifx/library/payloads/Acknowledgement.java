@@ -50,7 +50,7 @@ public class Acknowledgement extends AbstractMessage {
     @Override
     public String toString() {
         return "Acknowledgement {"+
-                "from: " + ByteUtils.toMacAddressString(Arrays.copyOfRange(getHeader().getTarget(), 0, 6)) +
+                "of: " + ByteUtils.toMacAddressString(Arrays.copyOfRange(getHeader().getTarget(), 0, 6)) +
                 "}";
     }
 }

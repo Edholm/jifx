@@ -27,7 +27,7 @@ public class Jifx {
 
             InetAddress address = InetAddress.getByName("255.255.255.255");
             DatagramPacket packet = new DatagramPacket(
-                    buffer.getContent(), buffer.size(), address, Constants.PORT
+                    buffer.getContent(), buffer.size(), address, Constants.DEFAULT_PORT.number()
             );
             socket.setBroadcast(true);
             socket.send(packet);

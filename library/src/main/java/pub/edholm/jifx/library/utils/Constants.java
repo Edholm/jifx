@@ -1,5 +1,7 @@
 package pub.edholm.jifx.library.utils;
 
+import pub.edholm.jifx.library.datatypes.Port;
+
 import java.nio.ByteOrder;
 
 /**
@@ -11,7 +13,7 @@ public class Constants {
         throw new AssertionError("You mustn't create an instance of this class");
     }
 
-    public static final int PORT = 56700;
+    public static final Port DEFAULT_PORT = Port.of(56700);
 
     public static final int SIZE_STATE_INFO = 24;
     public static final int SIZE_STATE_VERSION = 12;

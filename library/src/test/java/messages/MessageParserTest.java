@@ -28,7 +28,7 @@ public class MessageParserTest {
             new State.Builder(new Hsbk.Builder().build(), new PowerLevel(true), Label.valueOf("Label schmäjbel")).build(),
             new StateInfrared.Builder((short) 1111).build(),
             new StatePower.Builder(true, true).build(),
-            new StateService.Builder(Service.UDP, Constants.PORT).build());
+            new StateService.Builder(Service.UDP, Constants.DEFAULT_PORT).build());
 
     @Test
     public void parse() throws Exception {
